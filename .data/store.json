@@ -1,0 +1,280 @@
+{
+  "config": {
+    "id": "biz-smile-clinic",
+    "name": "Smile Clinic Delhi",
+    "niche": "dental",
+    "phone_number": "+919876543210",
+    "display_phone": "+91 98765 43210",
+    "address": "Shop 14, Main Market, Green Park, New Delhi - 110016",
+    "timings": "Monday to Saturday: 10:00 AM – 8:00 PM | Sunday: 11:00 AM – 4:00 PM",
+    "doctor_name": "Dr. Arjun Sharma (BDS, MDS)",
+    "currency": "INR (₹)",
+    "whatsapp_phone_number_id": "109827364512345",
+    "whatsapp_waba_id": "209871625344556",
+    "whatsapp_verify_token": "smile_clinic_webhook_token_2026",
+    "system_prompt_custom": "",
+    "guardrail_refuse_medical": true,
+    "guardrail_refuse_offtopic": true,
+    "guardrail_honest_bot": true,
+    "services": [
+      {
+        "id": "srv-1",
+        "name": "Teeth Cleaning & Polishing",
+        "category": "Preventive",
+        "price_inr": 1500,
+        "duration_minutes": 30,
+        "description": "Ultrasonic scaling, stain removal, and polishing"
+      },
+      {
+        "id": "srv-2",
+        "name": "Dental Consultation & X-Ray",
+        "category": "Consultation",
+        "price_inr": 500,
+        "duration_minutes": 20,
+        "description": "Full oral exam with digital diagnostic X-ray"
+      },
+      {
+        "id": "srv-3",
+        "name": "Root Canal Treatment (RCT)",
+        "category": "Endodontics",
+        "price_inr": 4500,
+        "duration_minutes": 60,
+        "description": "Painless single/multi-sitting rotary root canal treatment"
+      },
+      {
+        "id": "srv-4",
+        "name": "Teeth Whitening (Laser)",
+        "category": "Cosmetic",
+        "price_inr": 8000,
+        "duration_minutes": 45,
+        "description": "Professional in-clinic laser teeth whitening for radiant smile"
+      },
+      {
+        "id": "srv-5",
+        "name": "Dental Implant Consultation",
+        "category": "Implantology",
+        "price_inr": 25000,
+        "duration_minutes": 45,
+        "description": "Permanent titanium implant with ceramic crown warranty"
+      },
+      {
+        "id": "srv-6",
+        "name": "Invisible Aligners Consultation",
+        "category": "Orthodontics",
+        "price_inr": 45000,
+        "duration_minutes": 30,
+        "description": "Clear aligners scanning & custom 3D treatment planning"
+      }
+    ]
+  },
+  "leads": [
+    {
+      "id": "lead-1",
+      "phone": "+919811223344",
+      "name": "Rohit Verma",
+      "status": "BOOKED",
+      "bot_paused": false,
+      "service_interest": "Teeth Cleaning & Polishing",
+      "preferred_date": "Tomorrow, 4:00 PM",
+      "notes": "Booked via WhatsApp AI Agent. Interested in laser teeth whitening package afterwards.",
+      "unread_count": 0,
+      "last_message_at": "2026-09-24T21:21:34.091Z",
+      "created_at": "2026-09-24T17:56:34.092Z",
+      "updated_at": "2026-09-24T21:21:34.092Z"
+    },
+    {
+      "id": "lead-2",
+      "phone": "+919877665544",
+      "name": "Pooja Sharma",
+      "status": "NEEDS_STAFF",
+      "bot_paused": true,
+      "service_interest": "Root Canal Treatment (RCT)",
+      "preferred_date": "Urgent today",
+      "notes": "Customer reported severe pain and asked to speak to human doctor. Bot paused automatically.",
+      "unread_count": 1,
+      "last_message_at": "2026-09-24T21:44:34.093Z",
+      "created_at": "2026-09-24T21:11:34.093Z",
+      "updated_at": "2026-09-24T21:44:34.093Z"
+    },
+    {
+      "id": "lead-3",
+      "phone": "+919988771122",
+      "name": "Amit Patel",
+      "status": "QUALIFIED",
+      "bot_paused": false,
+      "service_interest": "Dental Implant Consultation",
+      "preferred_date": "Saturday morning",
+      "notes": "Enquired about full titanium implant cost; bot answered ₹25,000 with crown warranty.",
+      "unread_count": 0,
+      "last_message_at": "2026-09-24T20:21:34.093Z",
+      "created_at": "2026-09-24T18:56:34.093Z",
+      "updated_at": "2026-09-24T20:21:34.093Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-1",
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "Hi, what is the cost of teeth cleaning?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "timestamp": "2026-09-24T21:11:34.093Z"
+    },
+    {
+      "id": "msg-2",
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Hello Rohit ji! Teeth Cleaning & Polishing at Smile Clinic Delhi is ₹1,500 (includes ultrasonic scaling and stain removal). What day and time suits you best for an appointment?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "timestamp": "2026-09-24T21:12:34.093Z"
+    },
+    {
+      "id": "msg-3",
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "Can I book for tomorrow at 4 PM?",
+      "intent": "book",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "timestamp": "2026-09-24T21:16:34.093Z"
+    },
+    {
+      "id": "msg-4",
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Great! I have reserved your slot for Teeth Cleaning tomorrow at 4:00 PM with Dr. Arjun Sharma at our Green Park clinic. We will send you an automatic reminder before your visit.",
+      "intent": "book",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "timestamp": "2026-09-24T21:17:34.093Z"
+    },
+    {
+      "id": "msg-5",
+      "lead_id": "lead-2",
+      "phone": "+919877665544",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "Mujhe daant me bohot tez dard hai, can I talk to the doctor right now?",
+      "intent": "human",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "timestamp": "2026-09-24T21:41:34.093Z"
+    },
+    {
+      "id": "msg-6",
+      "lead_id": "lead-2",
+      "phone": "+919877665544",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Hum samajh sakte hain aapko takleef ho rahi hai. Main turant hamare clinic doctor/staff ko notify kar raha hoon taaki wo aapse directly baat kar sakein. Kripya thoda wait kijiye.",
+      "intent": "human",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "timestamp": "2026-09-24T21:42:34.093Z"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "apt-1",
+      "lead_id": "lead-1",
+      "patient_name": "Rohit Verma",
+      "phone": "+919811223344",
+      "service": "Teeth Cleaning & Polishing",
+      "date": "2026-09-25",
+      "time_slot": "04:00 PM",
+      "doctor_or_staff": "Dr. Arjun Sharma",
+      "status": "CONFIRMED",
+      "reminder_sent": false,
+      "created_at": "2026-09-24T21:21:34.093Z"
+    }
+  ],
+  "templates": [
+    {
+      "id": "tpl-reminder-24h",
+      "name": "appointment_reminder_utility",
+      "category": "UTILITY",
+      "language": "en",
+      "status": "APPROVED",
+      "cost_inr": 0.115,
+      "body": "Namaste {{1}}! This is a reminder from Smile Clinic Delhi for your appointment on {{2}} at {{3}} with {{4}}. Please reply 1 to CONFIRM or 2 to RESCHEDULE. Address: Green Park, New Delhi.",
+      "variables": [
+        "patient_name",
+        "date",
+        "time",
+        "doctor_name"
+      ]
+    },
+    {
+      "id": "tpl-booking-confirmed",
+      "name": "booking_confirmation_utility",
+      "category": "UTILITY",
+      "language": "en",
+      "status": "APPROVED",
+      "cost_inr": 0.115,
+      "body": "Dear {{1}}, your booking for {{2}} at Smile Clinic Delhi is confirmed for {{3}} at {{4}}. Dr. {{5}} looks forward to seeing you. Reply to this chat if you have any questions.",
+      "variables": [
+        "patient_name",
+        "service_name",
+        "date",
+        "time",
+        "doctor_name"
+      ]
+    },
+    {
+      "id": "tpl-missed-you-mkt",
+      "name": "we_missed_you_followup",
+      "category": "MARKETING",
+      "language": "en",
+      "status": "APPROVED",
+      "cost_inr": 0.8631,
+      "body": "Hi {{1}}, we missed you at Smile Clinic! Dental health checkups are recommended every 6 months. Reply \"OFFER\" to claim a complimentary dental X-ray with your next cleaning.",
+      "variables": [
+        "patient_name"
+      ]
+    },
+    {
+      "id": "tpl-otp-auth",
+      "name": "patient_portal_otp",
+      "category": "AUTHENTICATION",
+      "language": "en",
+      "status": "APPROVED",
+      "cost_inr": 0.115,
+      "body": "{{1}} is your verification OTP for Smile Clinic patient services. Valid for 10 minutes. Do not share with anyone.",
+      "variables": [
+        "otp_code"
+      ]
+    }
+  ],
+  "consentEvents": [
+    {
+      "id": "cst-1",
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "consent_type": "WHATSAPP_OPT_IN",
+      "status": "GRANTED",
+      "timestamp": "2026-09-24T21:06:34.093Z",
+      "source": "Website Lead Form Checkbox"
+    },
+    {
+      "id": "cst-2",
+      "lead_id": "lead-2",
+      "phone": "+919877665544",
+      "consent_type": "WHATSAPP_OPT_IN",
+      "status": "GRANTED",
+      "timestamp": "2026-09-24T21:36:34.093Z",
+      "source": "Direct WhatsApp Inbound Message"
+    }
+  ]
+}
