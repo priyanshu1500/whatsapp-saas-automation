@@ -7,6 +7,7 @@ import {
   BusinessConfig,
   MetaTemplate,
   ConsentEvent,
+  PropertyListing,
   ServiceItem,
 } from '@/types';
 
@@ -15,6 +16,7 @@ const DATA_FILE = path.join(DATA_DIR, 'store.json');
 
 export interface DatabaseSchema {
   config: BusinessConfig;
+  properties: PropertyListing[];
   leads: Lead[];
   messages: Message[];
   appointments: Appointment[];
@@ -22,117 +24,200 @@ export interface DatabaseSchema {
   consentEvents: ConsentEvent[];
 }
 
-const DEFAULT_SERVICES: ServiceItem[] = [
+const DEFAULT_PROPERTIES: PropertyListing[] = [
   {
-    id: 'srv-1',
-    name: 'Teeth Cleaning & Polishing',
-    category: 'Preventive',
-    price_inr: 1500,
-    duration_minutes: 30,
-    description: 'Ultrasonic scaling, stain removal, and polishing',
+    id: 'prop-1',
+    title: 'The Grand Horizon Penthouse & Sky Villas',
+    slug: 'grand-horizon-penthouses',
+    location: 'Golf Course Extension Road, Sector 65, Gurugram',
+    configuration: '4 & 5 BHK Duplex Sky Villas',
+    carpet_area_sqft: 4250,
+    price_cr: 8.5,
+    price_display: '₹8.50 Cr – ₹14.0 Cr',
+    possession_date: 'Ready to Move',
+    rera_number: 'RC/REP/HARERA/GGM/2023/88',
+    status: 'Ready to Move',
+    amenities: [
+      'Private High-Speed Elevator',
+      'Panoramic Golf View Balcony',
+      'Infinity Rooftop Pool',
+      'Double-Height Living Lounge',
+      '24/7 White-Glove Concierge',
+    ],
+    description:
+      'Ultra-luxury architectural penthouses featuring private plunge pools, floor-to-ceiling double-glazed soundproof glass, and bespoke Italian marble interiors.',
+    image_url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+    brochure_filename: 'Skyline_Grand_Horizon_Brochure.pdf',
   },
   {
-    id: 'srv-2',
-    name: 'Dental Consultation & X-Ray',
-    category: 'Consultation',
-    price_inr: 500,
-    duration_minutes: 20,
-    description: 'Full oral exam with digital diagnostic X-ray',
+    id: 'prop-2',
+    title: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+    slug: 'skyline-lumina-residences',
+    location: 'Sector 54, Golf Course Road, Gurugram',
+    configuration: '3 & 4 BHK Residences',
+    carpet_area_sqft: 2250,
+    price_cr: 3.4,
+    price_display: '₹3.40 Cr – ₹5.80 Cr',
+    possession_date: 'Dec 2026',
+    rera_number: 'RC/REP/HARERA/GGM/2024/112',
+    status: 'Under Construction',
+    amenities: [
+      'Clubhouse & Spa by Six Senses',
+      'Olympic-Length Heated Pool',
+      'EV Charging Bays (3 per apartment)',
+      'Sub-Zero & Wolf Kitchen Appliance Suite',
+      'VRV Air Conditioning',
+    ],
+    description:
+      'Contemporary luxury apartments offering optimal cross-ventilation, expansive wraparound balconies, and 82% open landscaped greens.',
+    image_url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    brochure_filename: 'Skyline_Lumina_Masterplan.pdf',
   },
   {
-    id: 'srv-3',
-    name: 'Root Canal Treatment (RCT)',
-    category: 'Endodontics',
-    price_inr: 4500,
-    duration_minutes: 60,
-    description: 'Painless single/multi-sitting rotary root canal treatment',
+    id: 'prop-3',
+    title: 'The Crestview Signature Golf Villas',
+    slug: 'crestview-golf-villas',
+    location: 'Aravalli Hills Foothills, Sector 63, Gurugram',
+    configuration: '5 BHK Independent Villas',
+    carpet_area_sqft: 5800,
+    price_cr: 11.5,
+    price_display: '₹11.50 Cr – ₹18.0 Cr',
+    possession_date: 'Under Construction (Q3 2027)',
+    rera_number: 'RC/REP/HARERA/GGM/2024/405',
+    status: 'Under Construction',
+    amenities: [
+      'Private 400 sq.yd Landscaped Lawn',
+      'Basement Home Cinema & Wine Cellar',
+      'Heated Indoor Lap Pool',
+      'Direct Buggy Access to Golf Course',
+      'Biometric Multi-tier Security',
+    ],
+    description:
+      'Gated community of 42 limited-edition architectural villas crafted with natural stone, structural timber, and private subterranean entertainment lounges.',
+    image_url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+    brochure_filename: 'Crestview_Villas_Lookbook.pdf',
   },
   {
-    id: 'srv-4',
-    name: 'Teeth Whitening (Laser)',
-    category: 'Cosmetic',
-    price_inr: 8000,
-    duration_minutes: 45,
-    description: 'Professional in-clinic laser teeth whitening for radiant smile',
-  },
-  {
-    id: 'srv-5',
-    name: 'Dental Implant Consultation',
-    category: 'Implantology',
-    price_inr: 25000,
-    duration_minutes: 45,
-    description: 'Permanent titanium implant with ceramic crown warranty',
-  },
-  {
-    id: 'srv-6',
-    name: 'Invisible Aligners Consultation',
-    category: 'Orthodontics',
-    price_inr: 45000,
-    duration_minutes: 30,
-    description: 'Clear aligners scanning & custom 3D treatment planning',
+    id: 'prop-4',
+    title: 'Skyline One Commercial Corporate Suites',
+    slug: 'skyline-one-commercial',
+    location: 'Cyber City Phase 2, DLF CyberHub Belt, Gurugram',
+    configuration: 'Grade-A Office Suites & Retail',
+    carpet_area_sqft: 1450,
+    price_cr: 2.1,
+    price_display: '₹2.10 Cr – ₹6.50 Cr',
+    possession_date: 'Ready to Move',
+    rera_number: 'RC/REP/HARERA/GGM/2022/94',
+    status: 'Ready to Move',
+    amenities: [
+      'LEED Platinum Certified Green Building',
+      'High-Speed Smart Elevators (3.5 m/s)',
+      'Triple-Height Grand Reception',
+      'Helipad Access',
+      'Guaranteed 8.2% Rental Yield',
+    ],
+    description:
+      'Prime Grade-A commercial assets with verified Fortune 500 corporate leases offering instant high rental yields and capital appreciation.',
+    image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+    brochure_filename: 'Skyline_Commercial_Investment_Report.pdf',
   },
 ];
 
 const DEFAULT_CONFIG: BusinessConfig = {
-  id: 'biz-smile-clinic',
-  name: 'Smile Clinic Delhi',
-  niche: 'dental',
-  phone_number: '+919876543210',
-  display_phone: '+91 98765 43210',
-  address: 'Shop 14, Main Market, Green Park, New Delhi - 110016',
-  timings: 'Monday to Saturday: 10:00 AM – 8:00 PM | Sunday: 11:00 AM – 4:00 PM',
-  doctor_name: 'Dr. Arjun Sharma (BDS, MDS)',
-  currency: 'INR (₹)',
+  id: 'biz-skyline-estates',
+  name: 'Skyline Luxury Estates',
+  niche: 'real_estate',
+  phone_number: '+919810012345',
+  display_phone: '+91 98100 12345',
+  address: 'Level 18, Two Horizon Centre, Golf Course Road, DLF Phase 5, Gurugram - 122002',
+  timings: 'Monday to Sunday: 9:00 AM – 8:00 PM (Private Site Tours by Appointment)',
+  doctor_name: 'Raghav Singhal (Managing Director, Luxury Sales)',
+  rera_registration: 'HARERA-GGM-2024-9182',
+  currency: 'INR (₹ Crores)',
   whatsapp_phone_number_id: '109827364512345',
   whatsapp_waba_id: '209871625344556',
-  whatsapp_verify_token: 'smile_clinic_webhook_token_2026',
+  whatsapp_verify_token: 'skyline_proptech_webhook_2026',
   system_prompt_custom: '',
   guardrail_refuse_medical: true,
   guardrail_refuse_offtopic: true,
   guardrail_honest_bot: true,
-  services: DEFAULT_SERVICES,
+  services: [
+    {
+      id: 'srv-1',
+      name: 'The Grand Horizon Penthouse Tour',
+      category: 'Residential Penthouse',
+      price_inr: 85000000,
+      duration_minutes: 60,
+      description: 'Private chauffeur walkthrough of 4 & 5 BHK Duplex Sky Villas (₹8.5 Cr+)',
+    },
+    {
+      id: 'srv-2',
+      name: 'Skyline Lumina 3 & 4 BHK Consultation',
+      category: 'Luxury Condominium',
+      price_inr: 34000000,
+      duration_minutes: 45,
+      description: 'Experience center visit & sample flat preview on Golf Course Road (₹3.4 Cr+)',
+    },
+    {
+      id: 'srv-3',
+      name: 'Crestview Signature Villa Private Showing',
+      category: 'Ultra Luxury Villa',
+      price_inr: 115000000,
+      duration_minutes: 90,
+      description: 'Exclusive buggy tour of 5 BHK independent golf estate villas (₹11.5 Cr+)',
+    },
+    {
+      id: 'srv-4',
+      name: 'Grade-A Commercial Investment Advisory',
+      category: 'Commercial Assets',
+      price_inr: 21000000,
+      duration_minutes: 45,
+      description: 'Rental yield assessment and corporate lease inspection (₹2.1 Cr+)',
+    },
+  ],
+  properties: DEFAULT_PROPERTIES,
 };
 
 const DEFAULT_TEMPLATES: MetaTemplate[] = [
   {
-    id: 'tpl-reminder-24h',
-    name: 'appointment_reminder_utility',
+    id: 'tpl-sitevisit-confirm',
+    name: 'site_visit_confirmed_utility',
     category: 'UTILITY',
     language: 'en',
     status: 'APPROVED',
     cost_inr: 0.115,
-    body: 'Namaste {{1}}! This is a reminder from Smile Clinic Delhi for your appointment on {{2}} at {{3}} with {{4}}. Please reply 1 to CONFIRM or 2 to RESCHEDULE. Address: Green Park, New Delhi.',
-    variables: ['patient_name', 'date', 'time', 'doctor_name'],
+    body: 'Namaste {{1}}! Your VIP Private Site Visit for {{2}} is confirmed for {{3}} at {{4}}. Gate Pass Code: {{5}}. Your dedicated luxury sales director {{6}} will receive you at Two Horizon Centre. Chauffeur pickup is confirmed.',
+    variables: ['buyer_name', 'project_name', 'date', 'time', 'gate_pass', 'sales_director'],
   },
   {
-    id: 'tpl-booking-confirmed',
-    name: 'booking_confirmation_utility',
+    id: 'tpl-sitevisit-reminder',
+    name: 'site_visit_reminder_24h_utility',
     category: 'UTILITY',
     language: 'en',
     status: 'APPROVED',
     cost_inr: 0.115,
-    body: 'Dear {{1}}, your booking for {{2}} at Smile Clinic Delhi is confirmed for {{3}} at {{4}}. Dr. {{5}} looks forward to seeing you. Reply to this chat if you have any questions.',
-    variables: ['patient_name', 'service_name', 'date', 'time', 'doctor_name'],
+    body: 'Dear {{1}}, reminder for your private site showing at {{2}} tomorrow at {{3}}. Address: Golf Course Road, Gurugram. Please reply 1 to CONFIRM or 2 to RESCHEDULE. We look forward to hosting you.',
+    variables: ['buyer_name', 'project_name', 'time'],
   },
   {
-    id: 'tpl-missed-you-mkt',
-    name: 'we_missed_you_followup',
+    id: 'tpl-brochure-dispatch',
+    name: 'digital_brochure_delivery',
+    category: 'UTILITY',
+    language: 'en',
+    status: 'APPROVED',
+    cost_inr: 0.115,
+    body: 'Hello {{1}}, as requested, here is the official architectural lookbook and floor plan catalogue for {{2}} (RERA: {{3}}). Tap the link below to download your high-resolution PDF dossier: {{4}}',
+    variables: ['buyer_name', 'project_name', 'rera_number', 'brochure_link'],
+  },
+  {
+    id: 'tpl-tower-launch-mkt',
+    name: 'exclusive_prelaunch_marketing',
     category: 'MARKETING',
     language: 'en',
     status: 'APPROVED',
     cost_inr: 0.8631,
-    body: 'Hi {{1}}, we missed you at Smile Clinic! Dental health checkups are recommended every 6 months. Reply "OFFER" to claim a complimentary dental X-ray with your next cleaning.',
-    variables: ['patient_name'],
-  },
-  {
-    id: 'tpl-otp-auth',
-    name: 'patient_portal_otp',
-    category: 'AUTHENTICATION',
-    language: 'en',
-    status: 'APPROVED',
-    cost_inr: 0.115,
-    body: '{{1}} is your verification OTP for Smile Clinic patient services. Valid for 10 minutes. Do not share with anyone.',
-    variables: ['otp_code'],
+    body: 'Exclusive for {{1}}: Skyline Luxury Estates announces the private pre-release of Tower Platinum at Skyline Lumina. Limited 18 sky residences at inaugural invitation pricing. Reply "VIP" for the confidential dossier.',
+    variables: ['buyer_name'],
   },
 ];
 
@@ -140,44 +225,53 @@ const INITIAL_LEADS: Lead[] = [
   {
     id: 'lead-1',
     phone: '+919811223344',
-    name: 'Rohit Verma',
-    status: 'BOOKED',
+    name: 'Vikramaditya Singhania',
+    status: 'SITE_VISIT_BOOKED',
     bot_paused: false,
-    service_interest: 'Teeth Cleaning & Polishing',
-    preferred_date: 'Tomorrow, 4:00 PM',
-    notes: 'Booked via WhatsApp AI Agent. Interested in laser teeth whitening package afterwards.',
+    service_interest: 'The Grand Horizon Penthouse & Sky Villas',
+    budget_bracket: '₹8.5 Cr – ₹14.0 Cr',
+    preferred_date: 'This Sunday at 11:00 AM',
+    buyer_type: 'End-User',
+    lead_tier: 'ULTRA_HNI',
+    notes: 'Inquired on WhatsApp for 4 BHK Duplex Penthouse. Requested private elevator access & golf view. Chauffeur pickup confirmed for Sunday 11 AM.',
     unread_count: 0,
-    last_message_at: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(),
-    updated_at: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
+    last_message_at: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
+    created_at: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
+    updated_at: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
   },
   {
     id: 'lead-2',
     phone: '+919877665544',
-    name: 'Pooja Sharma',
+    name: 'Ananya Oberoi',
     status: 'NEEDS_STAFF',
     bot_paused: true,
-    service_interest: 'Root Canal Treatment (RCT)',
-    preferred_date: 'Urgent today',
-    notes: 'Customer reported severe pain and asked to speak to human doctor. Bot paused automatically.',
+    service_interest: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+    budget_bracket: '₹3.5 Cr – ₹5.0 Cr',
+    preferred_date: 'Saturday Afternoon',
+    buyer_type: 'End-User',
+    lead_tier: 'HIGH_INTENT',
+    notes: 'Buyer requested custom payment plan (20:80 subvention scheme) and bank pre-approval. Bot paused for Managing Director intervention.',
     unread_count: 1,
-    last_message_at: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
-    created_at: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-    updated_at: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
+    last_message_at: new Date(Date.now() - 1000 * 60 * 8).toISOString(),
+    created_at: new Date(Date.now() - 1000 * 60 * 40).toISOString(),
+    updated_at: new Date(Date.now() - 1000 * 60 * 8).toISOString(),
   },
   {
     id: 'lead-3',
     phone: '+919988771122',
-    name: 'Amit Patel',
+    name: 'Karan Mehra (NRI, Dubai)',
     status: 'QUALIFIED',
     bot_paused: false,
-    service_interest: 'Dental Implant Consultation',
-    preferred_date: 'Saturday morning',
-    notes: 'Enquired about full titanium implant cost; bot answered ₹25,000 with crown warranty.',
+    service_interest: 'The Crestview Signature Golf Villas',
+    budget_bracket: '₹10 Cr+',
+    preferred_date: 'Next week on Delhi trip',
+    buyer_type: 'NRI',
+    lead_tier: 'ULTRA_HNI',
+    notes: 'NRI investor looking for freehold golf villa asset in Gurugram. Downloaded digital brochure via WhatsApp.',
     unread_count: 0,
-    last_message_at: new Date(Date.now() - 1000 * 60 * 95).toISOString(),
+    last_message_at: new Date(Date.now() - 1000 * 60 * 75).toISOString(),
     created_at: new Date(Date.now() - 1000 * 60 * 180).toISOString(),
-    updated_at: new Date(Date.now() - 1000 * 60 * 95).toISOString(),
+    updated_at: new Date(Date.now() - 1000 * 60 * 75).toISOString(),
   },
 ];
 
@@ -188,11 +282,11 @@ const INITIAL_MESSAGES: Message[] = [
     phone: '+919811223344',
     direction: 'INBOUND',
     sender: 'CUSTOMER',
-    body: 'Hi, what is the cost of teeth cleaning?',
+    body: 'Hi, what is the starting price for 4 BHK Sky Villa in Grand Horizon?',
     intent: 'question',
     cost_category: 'service_reply',
     cost_inr: 0,
-    timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
+    timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
   },
   {
     id: 'msg-2',
@@ -200,11 +294,11 @@ const INITIAL_MESSAGES: Message[] = [
     phone: '+919811223344',
     direction: 'OUTBOUND',
     sender: 'BOT',
-    body: 'Hello Rohit ji! Teeth Cleaning & Polishing at Smile Clinic Delhi is ₹1,500 (includes ultrasonic scaling and stain removal). What day and time suits you best for an appointment?',
+    body: 'Namaste Vikramaditya ji. The Grand Horizon Sky Villas (Sector 65, Golf Course Ext Road) start at ₹8.50 Cr for 4,250 sq.ft duplex configurations, featuring private high-speed elevators, double-height living ceilings, and panoramic golf course vistas (RERA Approved: RC/REP/HARERA/GGM/2023/88). Would you like to schedule a private site tour this weekend?',
     intent: 'question',
     cost_category: 'service_reply',
     cost_inr: 0,
-    timestamp: new Date(Date.now() - 1000 * 60 * 44).toISOString(),
+    timestamp: new Date(Date.now() - 1000 * 60 * 29).toISOString(),
   },
   {
     id: 'msg-3',
@@ -212,11 +306,11 @@ const INITIAL_MESSAGES: Message[] = [
     phone: '+919811223344',
     direction: 'INBOUND',
     sender: 'CUSTOMER',
-    body: 'Can I book for tomorrow at 4 PM?',
+    body: 'Yes, can I book a site visit for this Sunday at 11 AM with chauffeur pickup?',
     intent: 'book',
     cost_category: 'service_reply',
     cost_inr: 0,
-    timestamp: new Date(Date.now() - 1000 * 60 * 40).toISOString(),
+    timestamp: new Date(Date.now() - 1000 * 60 * 22).toISOString(),
   },
   {
     id: 'msg-4',
@@ -224,11 +318,11 @@ const INITIAL_MESSAGES: Message[] = [
     phone: '+919811223344',
     direction: 'OUTBOUND',
     sender: 'BOT',
-    body: 'Great! I have reserved your slot for Teeth Cleaning tomorrow at 4:00 PM with Dr. Arjun Sharma at our Green Park clinic. We will send you an automatic reminder before your visit.',
+    body: 'Your VIP Private Site Tour has been reserved for Sunday at 11:00 AM. Raghav Singhal (Managing Director) will personally host you at the Horizon Experience Lounge. Gate Pass Code: #VIP-7701. Chauffeur pickup is scheduled 45 minutes prior. We look forward to welcoming you.',
     intent: 'book',
     cost_category: 'service_reply',
     cost_inr: 0,
-    timestamp: new Date(Date.now() - 1000 * 60 * 39).toISOString(),
+    timestamp: new Date(Date.now() - 1000 * 60 * 21).toISOString(),
   },
   {
     id: 'msg-5',
@@ -236,11 +330,11 @@ const INITIAL_MESSAGES: Message[] = [
     phone: '+919877665544',
     direction: 'INBOUND',
     sender: 'CUSTOMER',
-    body: 'Mujhe daant me bohot tez dard hai, can I talk to the doctor right now?',
+    body: 'I want to discuss customized 20:80 construction-linked payment plans with your sales director directly.',
     intent: 'human',
     cost_category: 'service_reply',
     cost_inr: 0,
-    timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+    timestamp: new Date(Date.now() - 1000 * 60 * 10).toISOString(),
   },
   {
     id: 'msg-6',
@@ -248,11 +342,11 @@ const INITIAL_MESSAGES: Message[] = [
     phone: '+919877665544',
     direction: 'OUTBOUND',
     sender: 'BOT',
-    body: 'Hum samajh sakte hain aapko takleef ho rahi hai. Main turant hamare clinic doctor/staff ko notify kar raha hoon taaki wo aapse directly baat kar sakein. Kripya thoda wait kijiye.',
+    body: 'Understood, Ms. Oberoi. I have flagged your request with priority to our Managing Director, Mr. Raghav Singhal. He will contact you directly on this number within 15 minutes to review bespoke payment structures.',
     intent: 'human',
     cost_category: 'service_reply',
     cost_inr: 0,
-    timestamp: new Date(Date.now() - 1000 * 60 * 14).toISOString(),
+    timestamp: new Date(Date.now() - 1000 * 60 * 9).toISOString(),
   },
 ];
 
@@ -260,15 +354,17 @@ const INITIAL_APPOINTMENTS: Appointment[] = [
   {
     id: 'apt-1',
     lead_id: 'lead-1',
-    patient_name: 'Rohit Verma',
+    patient_name: 'Vikramaditya Singhania',
     phone: '+919811223344',
-    service: 'Teeth Cleaning & Polishing',
-    date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-    time_slot: '04:00 PM',
-    doctor_or_staff: 'Dr. Arjun Sharma',
+    service: 'The Grand Horizon Penthouse Tour',
+    date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
+    time_slot: '11:00 AM',
+    doctor_or_staff: 'Raghav Singhal (Managing Director)',
     status: 'CONFIRMED',
     reminder_sent: false,
-    created_at: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
+    chauffeur_pickup_required: true,
+    gate_pass_code: 'SKY-VIP-7701',
+    created_at: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
   },
 ];
 
@@ -279,8 +375,8 @@ const INITIAL_CONSENT: ConsentEvent[] = [
     phone: '+919811223344',
     consent_type: 'WHATSAPP_OPT_IN',
     status: 'GRANTED',
-    timestamp: new Date(Date.now() - 1000 * 60 * 50).toISOString(),
-    source: 'Website Lead Form Checkbox',
+    timestamp: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
+    source: 'Luxury Developer Website Lead Portal',
   },
   {
     id: 'cst-2',
@@ -288,8 +384,8 @@ const INITIAL_CONSENT: ConsentEvent[] = [
     phone: '+919877665544',
     consent_type: 'WHATSAPP_OPT_IN',
     status: 'GRANTED',
-    timestamp: new Date(Date.now() - 1000 * 60 * 20).toISOString(),
-    source: 'Direct WhatsApp Inbound Message',
+    timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+    source: 'Meta Click-to-WhatsApp Luxury Ad Campaign',
   },
 ];
 
@@ -304,7 +400,18 @@ class StorageEngine {
     try {
       if (fs.existsSync(DATA_FILE)) {
         const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-        return JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        // Ensure real estate properties catalog exists
+        if (!parsed.properties || parsed.properties.length === 0) {
+          parsed.properties = DEFAULT_PROPERTIES;
+          parsed.config = DEFAULT_CONFIG;
+          parsed.leads = INITIAL_LEADS;
+          parsed.messages = INITIAL_MESSAGES;
+          parsed.appointments = INITIAL_APPOINTMENTS;
+          parsed.templates = DEFAULT_TEMPLATES;
+          this.persist(parsed);
+        }
+        return parsed;
       }
     } catch (e) {
       console.error('[DB] Failed reading disk store, falling back to defaults:', e);
@@ -312,6 +419,7 @@ class StorageEngine {
 
     const initial: DatabaseSchema = {
       config: DEFAULT_CONFIG,
+      properties: DEFAULT_PROPERTIES,
       leads: INITIAL_LEADS,
       messages: INITIAL_MESSAGES,
       appointments: INITIAL_APPOINTMENTS,
@@ -348,6 +456,15 @@ class StorageEngine {
     return this.data.config;
   }
 
+  // --- Properties Portfolio ---
+  getProperties(): PropertyListing[] {
+    return this.data.properties || DEFAULT_PROPERTIES;
+  }
+
+  getPropertyById(id: string): PropertyListing | undefined {
+    return this.getProperties().find((p) => p.id === id);
+  }
+
   // --- Leads ---
   getLeads(): Lead[] {
     return [...this.data.leads].sort(
@@ -379,10 +496,11 @@ class StorageEngine {
     const newLead: Lead = {
       id: `lead-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       phone,
-      name: name || 'WhatsApp Prospect',
+      name: name || 'VIP Property Buyer',
       status: 'NEW',
       bot_paused: false,
-      notes: 'Acquired via WhatsApp inquiry',
+      lead_tier: 'HIGH_INTENT',
+      notes: 'Acquired via Meta Click-to-WhatsApp Luxury Ad',
       unread_count: 1,
       last_message_at: new Date().toISOString(),
       created_at: new Date().toISOString(),
@@ -390,7 +508,7 @@ class StorageEngine {
     };
     this.data.leads.unshift(newLead);
 
-    // Automatic DPDP consent logging on inbound engagement
+    // Automatic DPDP consent logging
     this.addConsentEvent({
       id: `cst-${Date.now()}`,
       lead_id: newLead.id,
@@ -398,7 +516,7 @@ class StorageEngine {
       consent_type: 'WHATSAPP_OPT_IN',
       status: 'GRANTED',
       timestamp: new Date().toISOString(),
-      source: 'Direct WhatsApp Inbound Message',
+      source: 'Direct WhatsApp Inbound Real Estate Inquiry',
     });
 
     this.save();
@@ -446,7 +564,7 @@ class StorageEngine {
     return fullMsg;
   }
 
-  // --- Appointments ---
+  // --- Site Visits / Appointments ---
   getAppointments(): Appointment[] {
     return [...this.data.appointments].sort(
       (a, b) => new Date(a.date + ' ' + a.time_slot).getTime() - new Date(b.date + ' ' + b.time_slot).getTime()
@@ -457,14 +575,15 @@ class StorageEngine {
     const fullApt: Appointment = {
       ...apt,
       id: `apt-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      gate_pass_code: apt.gate_pass_code || `VIP-${Math.floor(1000 + Math.random() * 9000)}`,
       created_at: new Date().toISOString(),
     };
     this.data.appointments.push(fullApt);
 
-    // Update lead status to BOOKED
+    // Update lead status to SITE_VISIT_BOOKED
     if (apt.lead_id) {
       this.updateLead(apt.lead_id, {
-        status: 'BOOKED',
+        status: 'SITE_VISIT_BOOKED',
         service_interest: apt.service,
         preferred_date: `${apt.date} at ${apt.time_slot}`,
       });
@@ -506,12 +625,10 @@ class StorageEngine {
     const lead = this.getLeadByPhone(cleanPhone);
     if (!lead) return false;
 
-    // DPDP Right to be Forgotten: erase messages and appointments
     this.data.messages = this.data.messages.filter((m) => m.lead_id !== lead.id);
     this.data.appointments = this.data.appointments.filter((a) => a.lead_id !== lead.id);
     this.data.leads = this.data.leads.filter((l) => l.id !== lead.id);
 
-    // Log erasure event for compliance record
     this.addConsentEvent({
       id: `cst-erase-${Date.now()}`,
       lead_id: lead.id,
@@ -526,49 +643,56 @@ class StorageEngine {
     return true;
   }
 
-  // --- Analytics & Cost Metrics (Section 5 of Guide) ---
+  // --- High-Ticket Real Estate Metrics ($1000/mo Value Driver) ---
   getMetrics() {
     const totalLeads = this.data.leads.length;
-    const bookedLeads = this.data.leads.filter((l) => l.status === 'BOOKED').length;
+    const bookedSiteVisits = this.data.leads.filter(
+      (l) => l.status === 'SITE_VISIT_BOOKED' || l.status === 'BOOKED'
+    ).length;
     const humanTakeovers = this.data.leads.filter((l) => l.bot_paused).length;
     const totalMessages = this.data.messages.length;
     const botReplies = this.data.messages.filter((m) => m.sender === 'BOT').length;
     const customerMessages = this.data.messages.filter((m) => m.sender === 'CUSTOMER').length;
 
-    // Pricing calculation based on Section 5 of "How to Build & Sell an AI WhatsApp Agent in India":
-    // Service replies: Free now / 1000 free per month, then ₹0.115
-    // Utility templates: ₹0.115 per message
-    // Marketing templates: ₹0.8631 per message
-    // GST @ 18%
+    // Real Estate Pipeline Value (in ₹ Crores)
+    // Average deal size is ~₹4.8 Cr
+    const estimatedPipelineCr = Number(
+      (
+        this.data.leads.reduce((sum, l) => {
+          if (l.status === 'SITE_VISIT_BOOKED' || l.status === 'NEGOTIATION') return sum + 6.5;
+          if (l.status === 'QUALIFIED') return sum + 4.2;
+          return sum + 3.4;
+        }, 0)
+      ).toFixed(1)
+    );
+
+    // Projected Brokerage Commission @ 2%
+    // e.g. on ₹48.5 Cr pipeline = ₹97 Lakhs (~$116k)
+    const projectedCommissionLakhs = Number(((estimatedPipelineCr * 100) * 0.02).toFixed(1));
+
+    // Meta API Cost breakdown
     const serviceRepliesCount = botReplies;
     const paidServiceReplies = Math.max(0, serviceRepliesCount - 1000);
     const serviceCostInr = paidServiceReplies * 0.115;
     const utilityCount = this.data.appointments.filter((a) => a.reminder_sent).length;
     const utilityCostInr = utilityCount * 0.115;
-    const marketingCount = 0; // templates dispatched
+    const marketingCount = 0;
     const marketingCostInr = marketingCount * 0.8631;
 
     const metaSubtotal = serviceCostInr + utilityCostInr + marketingCostInr;
     const gst18Inr = metaSubtotal * 0.18;
     const totalMetaCostInr = metaSubtotal + gst18Inr;
 
-    // Estimated revenue from confirmed appointments
-    const estimatedPipelineInr = this.data.appointments
-      .filter((a) => a.status === 'CONFIRMED' || a.status === 'COMPLETED')
-      .reduce((sum, a) => {
-        const srv = this.data.config.services.find((s) => s.name === a.service);
-        return sum + (srv ? srv.price_inr : 2000);
-      }, 0);
-
     return {
       totalLeads,
-      bookedLeads,
-      conversionRate: totalLeads > 0 ? Math.round((bookedLeads / totalLeads) * 100) : 0,
+      bookedSiteVisits,
+      conversionRate: totalLeads > 0 ? Math.round((bookedSiteVisits / totalLeads) * 100) : 0,
       humanTakeovers,
       totalMessages,
       botReplies,
       customerMessages,
-      estimatedPipelineInr,
+      estimatedPipelineCr,
+      projectedCommissionLakhs,
       metaCost: {
         serviceRepliesCount,
         utilityCount,
@@ -581,7 +705,6 @@ class StorageEngine {
   }
 }
 
-// Global singleton instance
 const globalForDb = globalThis as unknown as { dbInstance?: StorageEngine };
 export const db = globalForDb.dbInstance ?? new StorageEngine();
 if (process.env.NODE_ENV !== 'production') globalForDb.dbInstance = db;

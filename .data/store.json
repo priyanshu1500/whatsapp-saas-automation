@@ -1,17 +1,18 @@
 {
   "config": {
-    "id": "biz-smile-clinic",
-    "name": "Smile Clinic Delhi",
-    "niche": "dental",
-    "phone_number": "+919876543210",
-    "display_phone": "+91 98765 43210",
-    "address": "Shop 14, Main Market, Green Park, New Delhi - 110016",
-    "timings": "Monday to Saturday: 10:00 AM – 8:00 PM | Sunday: 11:00 AM – 4:00 PM",
-    "doctor_name": "Dr. Arjun Sharma (BDS, MDS)",
-    "currency": "INR (₹)",
+    "id": "biz-skyline-estates",
+    "name": "Skyline Luxury Estates",
+    "niche": "real_estate",
+    "phone_number": "+919810012345",
+    "display_phone": "+91 98100 12345",
+    "address": "Level 18, Two Horizon Centre, Golf Course Road, DLF Phase 5, Gurugram - 122002",
+    "timings": "Monday to Sunday: 9:00 AM – 8:00 PM (Private Site Tours by Appointment)",
+    "doctor_name": "Raghav Singhal (Managing Director, Luxury Sales)",
+    "rera_registration": "HARERA-GGM-2024-9182",
+    "currency": "INR (₹ Crores)",
     "whatsapp_phone_number_id": "109827364512345",
     "whatsapp_waba_id": "209871625344556",
-    "whatsapp_verify_token": "smile_clinic_webhook_token_2026",
+    "whatsapp_verify_token": "skyline_proptech_webhook_2026",
     "system_prompt_custom": "",
     "guardrail_refuse_medical": true,
     "guardrail_refuse_offtopic": true,
@@ -19,96 +20,277 @@
     "services": [
       {
         "id": "srv-1",
-        "name": "Teeth Cleaning & Polishing",
-        "category": "Preventive",
-        "price_inr": 1500,
-        "duration_minutes": 30,
-        "description": "Ultrasonic scaling, stain removal, and polishing"
+        "name": "The Grand Horizon Penthouse Tour",
+        "category": "Residential Penthouse",
+        "price_inr": 85000000,
+        "duration_minutes": 60,
+        "description": "Private chauffeur walkthrough of 4 & 5 BHK Duplex Sky Villas (₹8.5 Cr+)"
       },
       {
         "id": "srv-2",
-        "name": "Dental Consultation & X-Ray",
-        "category": "Consultation",
-        "price_inr": 500,
-        "duration_minutes": 20,
-        "description": "Full oral exam with digital diagnostic X-ray"
+        "name": "Skyline Lumina 3 & 4 BHK Consultation",
+        "category": "Luxury Condominium",
+        "price_inr": 34000000,
+        "duration_minutes": 45,
+        "description": "Experience center visit & sample flat preview on Golf Course Road (₹3.4 Cr+)"
       },
       {
         "id": "srv-3",
-        "name": "Root Canal Treatment (RCT)",
-        "category": "Endodontics",
-        "price_inr": 4500,
-        "duration_minutes": 60,
-        "description": "Painless single/multi-sitting rotary root canal treatment"
+        "name": "Crestview Signature Villa Private Showing",
+        "category": "Ultra Luxury Villa",
+        "price_inr": 115000000,
+        "duration_minutes": 90,
+        "description": "Exclusive buggy tour of 5 BHK independent golf estate villas (₹11.5 Cr+)"
       },
       {
         "id": "srv-4",
-        "name": "Teeth Whitening (Laser)",
-        "category": "Cosmetic",
-        "price_inr": 8000,
+        "name": "Grade-A Commercial Investment Advisory",
+        "category": "Commercial Assets",
+        "price_inr": 21000000,
         "duration_minutes": 45,
-        "description": "Professional in-clinic laser teeth whitening for radiant smile"
+        "description": "Rental yield assessment and corporate lease inspection (₹2.1 Cr+)"
+      }
+    ],
+    "properties": [
+      {
+        "id": "prop-1",
+        "title": "The Grand Horizon Penthouse & Sky Villas",
+        "slug": "grand-horizon-penthouses",
+        "location": "Golf Course Extension Road, Sector 65, Gurugram",
+        "configuration": "4 & 5 BHK Duplex Sky Villas",
+        "carpet_area_sqft": 4250,
+        "price_cr": 8.5,
+        "price_display": "₹8.50 Cr – ₹14.0 Cr",
+        "possession_date": "Ready to Move",
+        "rera_number": "RC/REP/HARERA/GGM/2023/88",
+        "status": "Ready to Move",
+        "amenities": [
+          "Private High-Speed Elevator",
+          "Panoramic Golf View Balcony",
+          "Infinity Rooftop Pool",
+          "Double-Height Living Lounge",
+          "24/7 White-Glove Concierge"
+        ],
+        "description": "Ultra-luxury architectural penthouses featuring private plunge pools, floor-to-ceiling double-glazed soundproof glass, and bespoke Italian marble interiors.",
+        "image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+        "brochure_filename": "Skyline_Grand_Horizon_Brochure.pdf"
       },
       {
-        "id": "srv-5",
-        "name": "Dental Implant Consultation",
-        "category": "Implantology",
-        "price_inr": 25000,
-        "duration_minutes": 45,
-        "description": "Permanent titanium implant with ceramic crown warranty"
+        "id": "prop-2",
+        "title": "Skyline Lumina 3 & 4 BHK Luxury Residences",
+        "slug": "skyline-lumina-residences",
+        "location": "Sector 54, Golf Course Road, Gurugram",
+        "configuration": "3 & 4 BHK Residences",
+        "carpet_area_sqft": 2250,
+        "price_cr": 3.4,
+        "price_display": "₹3.40 Cr – ₹5.80 Cr",
+        "possession_date": "Dec 2026",
+        "rera_number": "RC/REP/HARERA/GGM/2024/112",
+        "status": "Under Construction",
+        "amenities": [
+          "Clubhouse & Spa by Six Senses",
+          "Olympic-Length Heated Pool",
+          "EV Charging Bays (3 per apartment)",
+          "Sub-Zero & Wolf Kitchen Appliance Suite",
+          "VRV Air Conditioning"
+        ],
+        "description": "Contemporary luxury apartments offering optimal cross-ventilation, expansive wraparound balconies, and 82% open landscaped greens.",
+        "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+        "brochure_filename": "Skyline_Lumina_Masterplan.pdf"
       },
       {
-        "id": "srv-6",
-        "name": "Invisible Aligners Consultation",
-        "category": "Orthodontics",
-        "price_inr": 45000,
-        "duration_minutes": 30,
-        "description": "Clear aligners scanning & custom 3D treatment planning"
+        "id": "prop-3",
+        "title": "The Crestview Signature Golf Villas",
+        "slug": "crestview-golf-villas",
+        "location": "Aravalli Hills Foothills, Sector 63, Gurugram",
+        "configuration": "5 BHK Independent Villas",
+        "carpet_area_sqft": 5800,
+        "price_cr": 11.5,
+        "price_display": "₹11.50 Cr – ₹18.0 Cr",
+        "possession_date": "Under Construction (Q3 2027)",
+        "rera_number": "RC/REP/HARERA/GGM/2024/405",
+        "status": "Under Construction",
+        "amenities": [
+          "Private 400 sq.yd Landscaped Lawn",
+          "Basement Home Cinema & Wine Cellar",
+          "Heated Indoor Lap Pool",
+          "Direct Buggy Access to Golf Course",
+          "Biometric Multi-tier Security"
+        ],
+        "description": "Gated community of 42 limited-edition architectural villas crafted with natural stone, structural timber, and private subterranean entertainment lounges.",
+        "image_url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+        "brochure_filename": "Crestview_Villas_Lookbook.pdf"
+      },
+      {
+        "id": "prop-4",
+        "title": "Skyline One Commercial Corporate Suites",
+        "slug": "skyline-one-commercial",
+        "location": "Cyber City Phase 2, DLF CyberHub Belt, Gurugram",
+        "configuration": "Grade-A Office Suites & Retail",
+        "carpet_area_sqft": 1450,
+        "price_cr": 2.1,
+        "price_display": "₹2.10 Cr – ₹6.50 Cr",
+        "possession_date": "Ready to Move",
+        "rera_number": "RC/REP/HARERA/GGM/2022/94",
+        "status": "Ready to Move",
+        "amenities": [
+          "LEED Platinum Certified Green Building",
+          "High-Speed Smart Elevators (3.5 m/s)",
+          "Triple-Height Grand Reception",
+          "Helipad Access",
+          "Guaranteed 8.2% Rental Yield"
+        ],
+        "description": "Prime Grade-A commercial assets with verified Fortune 500 corporate leases offering instant high rental yields and capital appreciation.",
+        "image_url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+        "brochure_filename": "Skyline_Commercial_Investment_Report.pdf"
       }
     ]
   },
+  "properties": [
+    {
+      "id": "prop-1",
+      "title": "The Grand Horizon Penthouse & Sky Villas",
+      "slug": "grand-horizon-penthouses",
+      "location": "Golf Course Extension Road, Sector 65, Gurugram",
+      "configuration": "4 & 5 BHK Duplex Sky Villas",
+      "carpet_area_sqft": 4250,
+      "price_cr": 8.5,
+      "price_display": "₹8.50 Cr – ₹14.0 Cr",
+      "possession_date": "Ready to Move",
+      "rera_number": "RC/REP/HARERA/GGM/2023/88",
+      "status": "Ready to Move",
+      "amenities": [
+        "Private High-Speed Elevator",
+        "Panoramic Golf View Balcony",
+        "Infinity Rooftop Pool",
+        "Double-Height Living Lounge",
+        "24/7 White-Glove Concierge"
+      ],
+      "description": "Ultra-luxury architectural penthouses featuring private plunge pools, floor-to-ceiling double-glazed soundproof glass, and bespoke Italian marble interiors.",
+      "image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+      "brochure_filename": "Skyline_Grand_Horizon_Brochure.pdf"
+    },
+    {
+      "id": "prop-2",
+      "title": "Skyline Lumina 3 & 4 BHK Luxury Residences",
+      "slug": "skyline-lumina-residences",
+      "location": "Sector 54, Golf Course Road, Gurugram",
+      "configuration": "3 & 4 BHK Residences",
+      "carpet_area_sqft": 2250,
+      "price_cr": 3.4,
+      "price_display": "₹3.40 Cr – ₹5.80 Cr",
+      "possession_date": "Dec 2026",
+      "rera_number": "RC/REP/HARERA/GGM/2024/112",
+      "status": "Under Construction",
+      "amenities": [
+        "Clubhouse & Spa by Six Senses",
+        "Olympic-Length Heated Pool",
+        "EV Charging Bays (3 per apartment)",
+        "Sub-Zero & Wolf Kitchen Appliance Suite",
+        "VRV Air Conditioning"
+      ],
+      "description": "Contemporary luxury apartments offering optimal cross-ventilation, expansive wraparound balconies, and 82% open landscaped greens.",
+      "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+      "brochure_filename": "Skyline_Lumina_Masterplan.pdf"
+    },
+    {
+      "id": "prop-3",
+      "title": "The Crestview Signature Golf Villas",
+      "slug": "crestview-golf-villas",
+      "location": "Aravalli Hills Foothills, Sector 63, Gurugram",
+      "configuration": "5 BHK Independent Villas",
+      "carpet_area_sqft": 5800,
+      "price_cr": 11.5,
+      "price_display": "₹11.50 Cr – ₹18.0 Cr",
+      "possession_date": "Under Construction (Q3 2027)",
+      "rera_number": "RC/REP/HARERA/GGM/2024/405",
+      "status": "Under Construction",
+      "amenities": [
+        "Private 400 sq.yd Landscaped Lawn",
+        "Basement Home Cinema & Wine Cellar",
+        "Heated Indoor Lap Pool",
+        "Direct Buggy Access to Golf Course",
+        "Biometric Multi-tier Security"
+      ],
+      "description": "Gated community of 42 limited-edition architectural villas crafted with natural stone, structural timber, and private subterranean entertainment lounges.",
+      "image_url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+      "brochure_filename": "Crestview_Villas_Lookbook.pdf"
+    },
+    {
+      "id": "prop-4",
+      "title": "Skyline One Commercial Corporate Suites",
+      "slug": "skyline-one-commercial",
+      "location": "Cyber City Phase 2, DLF CyberHub Belt, Gurugram",
+      "configuration": "Grade-A Office Suites & Retail",
+      "carpet_area_sqft": 1450,
+      "price_cr": 2.1,
+      "price_display": "₹2.10 Cr – ₹6.50 Cr",
+      "possession_date": "Ready to Move",
+      "rera_number": "RC/REP/HARERA/GGM/2022/94",
+      "status": "Ready to Move",
+      "amenities": [
+        "LEED Platinum Certified Green Building",
+        "High-Speed Smart Elevators (3.5 m/s)",
+        "Triple-Height Grand Reception",
+        "Helipad Access",
+        "Guaranteed 8.2% Rental Yield"
+      ],
+      "description": "Prime Grade-A commercial assets with verified Fortune 500 corporate leases offering instant high rental yields and capital appreciation.",
+      "image_url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+      "brochure_filename": "Skyline_Commercial_Investment_Report.pdf"
+    }
+  ],
   "leads": [
     {
       "id": "lead-1",
       "phone": "+919811223344",
-      "name": "Rohit Verma",
-      "status": "BOOKED",
+      "name": "Vikramaditya Singhania",
+      "status": "SITE_VISIT_BOOKED",
       "bot_paused": false,
-      "service_interest": "Teeth Cleaning & Polishing",
-      "preferred_date": "Tomorrow, 4:00 PM",
-      "notes": "Booked via WhatsApp AI Agent. Interested in laser teeth whitening package afterwards.",
+      "service_interest": "The Grand Horizon Penthouse & Sky Villas",
+      "budget_bracket": "₹8.5 Cr – ₹14.0 Cr",
+      "preferred_date": "This Sunday at 11:00 AM",
+      "buyer_type": "End-User",
+      "lead_tier": "ULTRA_HNI",
+      "notes": "Inquired on WhatsApp for 4 BHK Duplex Penthouse. Requested private elevator access & golf view. Chauffeur pickup confirmed for Sunday 11 AM.",
       "unread_count": 0,
-      "last_message_at": "2026-09-24T21:21:34.091Z",
-      "created_at": "2026-09-24T17:56:34.092Z",
-      "updated_at": "2026-09-24T21:21:34.092Z"
+      "last_message_at": "2026-09-25T19:00:55.424Z",
+      "created_at": "2026-09-25T16:20:55.425Z",
+      "updated_at": "2026-09-25T19:00:55.425Z"
     },
     {
       "id": "lead-2",
       "phone": "+919877665544",
-      "name": "Pooja Sharma",
+      "name": "Ananya Oberoi",
       "status": "NEEDS_STAFF",
       "bot_paused": true,
-      "service_interest": "Root Canal Treatment (RCT)",
-      "preferred_date": "Urgent today",
-      "notes": "Customer reported severe pain and asked to speak to human doctor. Bot paused automatically.",
+      "service_interest": "Skyline Lumina 3 & 4 BHK Luxury Residences",
+      "budget_bracket": "₹3.5 Cr – ₹5.0 Cr",
+      "preferred_date": "Saturday Afternoon",
+      "buyer_type": "End-User",
+      "lead_tier": "HIGH_INTENT",
+      "notes": "Buyer requested custom payment plan (20:80 subvention scheme) and bank pre-approval. Bot paused for Managing Director intervention.",
       "unread_count": 1,
-      "last_message_at": "2026-09-24T21:44:34.093Z",
-      "created_at": "2026-09-24T21:11:34.093Z",
-      "updated_at": "2026-09-24T21:44:34.093Z"
+      "last_message_at": "2026-09-25T19:12:55.425Z",
+      "created_at": "2026-09-25T18:40:55.425Z",
+      "updated_at": "2026-09-25T19:12:55.425Z"
     },
     {
       "id": "lead-3",
       "phone": "+919988771122",
-      "name": "Amit Patel",
+      "name": "Karan Mehra (NRI, Dubai)",
       "status": "QUALIFIED",
       "bot_paused": false,
-      "service_interest": "Dental Implant Consultation",
-      "preferred_date": "Saturday morning",
-      "notes": "Enquired about full titanium implant cost; bot answered ₹25,000 with crown warranty.",
+      "service_interest": "The Crestview Signature Golf Villas",
+      "budget_bracket": "₹10 Cr+",
+      "preferred_date": "Next week on Delhi trip",
+      "buyer_type": "NRI",
+      "lead_tier": "ULTRA_HNI",
+      "notes": "NRI investor looking for freehold golf villa asset in Gurugram. Downloaded digital brochure via WhatsApp.",
       "unread_count": 0,
-      "last_message_at": "2026-09-24T20:21:34.093Z",
-      "created_at": "2026-09-24T18:56:34.093Z",
-      "updated_at": "2026-09-24T20:21:34.093Z"
+      "last_message_at": "2026-09-25T18:05:55.425Z",
+      "created_at": "2026-09-25T16:20:55.425Z",
+      "updated_at": "2026-09-25T18:05:55.425Z"
     }
   ],
   "messages": [
@@ -118,11 +300,11 @@
       "phone": "+919811223344",
       "direction": "INBOUND",
       "sender": "CUSTOMER",
-      "body": "Hi, what is the cost of teeth cleaning?",
+      "body": "Hi, what is the starting price for 4 BHK Sky Villa in Grand Horizon?",
       "intent": "question",
       "cost_category": "service_reply",
       "cost_inr": 0,
-      "timestamp": "2026-09-24T21:11:34.093Z"
+      "timestamp": "2026-09-25T18:50:55.426Z"
     },
     {
       "id": "msg-2",
@@ -130,11 +312,11 @@
       "phone": "+919811223344",
       "direction": "OUTBOUND",
       "sender": "BOT",
-      "body": "Hello Rohit ji! Teeth Cleaning & Polishing at Smile Clinic Delhi is ₹1,500 (includes ultrasonic scaling and stain removal). What day and time suits you best for an appointment?",
+      "body": "Namaste Vikramaditya ji. The Grand Horizon Sky Villas (Sector 65, Golf Course Ext Road) start at ₹8.50 Cr for 4,250 sq.ft duplex configurations, featuring private high-speed elevators, double-height living ceilings, and panoramic golf course vistas (RERA Approved: RC/REP/HARERA/GGM/2023/88). Would you like to schedule a private site tour this weekend?",
       "intent": "question",
       "cost_category": "service_reply",
       "cost_inr": 0,
-      "timestamp": "2026-09-24T21:12:34.093Z"
+      "timestamp": "2026-09-25T18:51:55.426Z"
     },
     {
       "id": "msg-3",
@@ -142,11 +324,11 @@
       "phone": "+919811223344",
       "direction": "INBOUND",
       "sender": "CUSTOMER",
-      "body": "Can I book for tomorrow at 4 PM?",
+      "body": "Yes, can I book a site visit for this Sunday at 11 AM with chauffeur pickup?",
       "intent": "book",
       "cost_category": "service_reply",
       "cost_inr": 0,
-      "timestamp": "2026-09-24T21:16:34.093Z"
+      "timestamp": "2026-09-25T18:58:55.426Z"
     },
     {
       "id": "msg-4",
@@ -154,11 +336,11 @@
       "phone": "+919811223344",
       "direction": "OUTBOUND",
       "sender": "BOT",
-      "body": "Great! I have reserved your slot for Teeth Cleaning tomorrow at 4:00 PM with Dr. Arjun Sharma at our Green Park clinic. We will send you an automatic reminder before your visit.",
+      "body": "Your VIP Private Site Tour has been reserved for Sunday at 11:00 AM. Raghav Singhal (Managing Director) will personally host you at the Horizon Experience Lounge. Gate Pass Code: #VIP-7701. Chauffeur pickup is scheduled 45 minutes prior. We look forward to welcoming you.",
       "intent": "book",
       "cost_category": "service_reply",
       "cost_inr": 0,
-      "timestamp": "2026-09-24T21:17:34.093Z"
+      "timestamp": "2026-09-25T18:59:55.426Z"
     },
     {
       "id": "msg-5",
@@ -166,11 +348,11 @@
       "phone": "+919877665544",
       "direction": "INBOUND",
       "sender": "CUSTOMER",
-      "body": "Mujhe daant me bohot tez dard hai, can I talk to the doctor right now?",
+      "body": "I want to discuss customized 20:80 construction-linked payment plans with your sales director directly.",
       "intent": "human",
       "cost_category": "service_reply",
       "cost_inr": 0,
-      "timestamp": "2026-09-24T21:41:34.093Z"
+      "timestamp": "2026-09-25T19:10:55.426Z"
     },
     {
       "id": "msg-6",
@@ -178,82 +360,87 @@
       "phone": "+919877665544",
       "direction": "OUTBOUND",
       "sender": "BOT",
-      "body": "Hum samajh sakte hain aapko takleef ho rahi hai. Main turant hamare clinic doctor/staff ko notify kar raha hoon taaki wo aapse directly baat kar sakein. Kripya thoda wait kijiye.",
+      "body": "Understood, Ms. Oberoi. I have flagged your request with priority to our Managing Director, Mr. Raghav Singhal. He will contact you directly on this number within 15 minutes to review bespoke payment structures.",
       "intent": "human",
       "cost_category": "service_reply",
       "cost_inr": 0,
-      "timestamp": "2026-09-24T21:42:34.093Z"
+      "timestamp": "2026-09-25T19:11:55.426Z"
     }
   ],
   "appointments": [
     {
       "id": "apt-1",
       "lead_id": "lead-1",
-      "patient_name": "Rohit Verma",
+      "patient_name": "Vikramaditya Singhania",
       "phone": "+919811223344",
-      "service": "Teeth Cleaning & Polishing",
-      "date": "2026-09-25",
-      "time_slot": "04:00 PM",
-      "doctor_or_staff": "Dr. Arjun Sharma",
+      "service": "The Grand Horizon Penthouse Tour",
+      "date": "2026-09-27",
+      "time_slot": "11:00 AM",
+      "doctor_or_staff": "Raghav Singhal (Managing Director)",
       "status": "CONFIRMED",
       "reminder_sent": false,
-      "created_at": "2026-09-24T21:21:34.093Z"
+      "chauffeur_pickup_required": true,
+      "gate_pass_code": "SKY-VIP-7701",
+      "created_at": "2026-09-25T19:00:55.426Z"
     }
   ],
   "templates": [
     {
-      "id": "tpl-reminder-24h",
-      "name": "appointment_reminder_utility",
+      "id": "tpl-sitevisit-confirm",
+      "name": "site_visit_confirmed_utility",
       "category": "UTILITY",
       "language": "en",
       "status": "APPROVED",
       "cost_inr": 0.115,
-      "body": "Namaste {{1}}! This is a reminder from Smile Clinic Delhi for your appointment on {{2}} at {{3}} with {{4}}. Please reply 1 to CONFIRM or 2 to RESCHEDULE. Address: Green Park, New Delhi.",
+      "body": "Namaste {{1}}! Your VIP Private Site Visit for {{2}} is confirmed for {{3}} at {{4}}. Gate Pass Code: {{5}}. Your dedicated luxury sales director {{6}} will receive you at Two Horizon Centre. Chauffeur pickup is confirmed.",
       "variables": [
-        "patient_name",
+        "buyer_name",
+        "project_name",
         "date",
         "time",
-        "doctor_name"
+        "gate_pass",
+        "sales_director"
       ]
     },
     {
-      "id": "tpl-booking-confirmed",
-      "name": "booking_confirmation_utility",
+      "id": "tpl-sitevisit-reminder",
+      "name": "site_visit_reminder_24h_utility",
       "category": "UTILITY",
       "language": "en",
       "status": "APPROVED",
       "cost_inr": 0.115,
-      "body": "Dear {{1}}, your booking for {{2}} at Smile Clinic Delhi is confirmed for {{3}} at {{4}}. Dr. {{5}} looks forward to seeing you. Reply to this chat if you have any questions.",
+      "body": "Dear {{1}}, reminder for your private site showing at {{2}} tomorrow at {{3}}. Address: Golf Course Road, Gurugram. Please reply 1 to CONFIRM or 2 to RESCHEDULE. We look forward to hosting you.",
       "variables": [
-        "patient_name",
-        "service_name",
-        "date",
-        "time",
-        "doctor_name"
+        "buyer_name",
+        "project_name",
+        "time"
       ]
     },
     {
-      "id": "tpl-missed-you-mkt",
-      "name": "we_missed_you_followup",
+      "id": "tpl-brochure-dispatch",
+      "name": "digital_brochure_delivery",
+      "category": "UTILITY",
+      "language": "en",
+      "status": "APPROVED",
+      "cost_inr": 0.115,
+      "body": "Hello {{1}}, as requested, here is the official architectural lookbook and floor plan catalogue for {{2}} (RERA: {{3}}). Tap the link below to download your high-resolution PDF dossier: {{4}}",
+      "variables": [
+        "buyer_name",
+        "project_name",
+        "rera_number",
+        "brochure_link"
+      ]
+    },
+    {
+      "id": "tpl-tower-launch-mkt",
+      "name": "exclusive_prelaunch_marketing",
       "category": "MARKETING",
       "language": "en",
       "status": "APPROVED",
       "cost_inr": 0.8631,
-      "body": "Hi {{1}}, we missed you at Smile Clinic! Dental health checkups are recommended every 6 months. Reply \"OFFER\" to claim a complimentary dental X-ray with your next cleaning.",
+      "body": "Exclusive for {{1}}: Skyline Luxury Estates announces the private pre-release of Tower Platinum at Skyline Lumina. Limited 18 sky residences at inaugural invitation pricing. Reply \"VIP\" for the confidential dossier.",
       "variables": [
-        "patient_name"
-      ]
-    },
-    {
-      "id": "tpl-otp-auth",
-      "name": "patient_portal_otp",
-      "category": "AUTHENTICATION",
-      "language": "en",
-      "status": "APPROVED",
-      "cost_inr": 0.115,
-      "body": "{{1}} is your verification OTP for Smile Clinic patient services. Valid for 10 minutes. Do not share with anyone.",
-      "variables": [
-        "otp_code"
+        "buyer_name"
       ]
     }
   ],
@@ -264,8 +451,8 @@
       "phone": "+919811223344",
       "consent_type": "WHATSAPP_OPT_IN",
       "status": "GRANTED",
-      "timestamp": "2026-09-24T21:06:34.093Z",
-      "source": "Website Lead Form Checkbox"
+      "timestamp": "2026-09-25T18:45:55.426Z",
+      "source": "Luxury Developer Website Lead Portal"
     },
     {
       "id": "cst-2",
@@ -273,8 +460,8 @@
       "phone": "+919877665544",
       "consent_type": "WHATSAPP_OPT_IN",
       "status": "GRANTED",
-      "timestamp": "2026-09-24T21:36:34.093Z",
-      "source": "Direct WhatsApp Inbound Message"
+      "timestamp": "2026-09-25T19:05:55.426Z",
+      "source": "Meta Click-to-WhatsApp Luxury Ad Campaign"
     }
   ]
 }

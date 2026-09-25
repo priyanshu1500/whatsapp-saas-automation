@@ -1,45 +1,40 @@
-# CONTEXT.md - Domain Model & Glossary
+# CONTEXT.md - Luxury Real Estate PropTech Domain Model & Glossary
 
 ## Product Overview
-An end-to-end, multi-tenant WhatsApp AI Business Agent & Staff Operating System designed for high-ticket Indian and global SMBs (Dental/Skin clinics, Real estate brokers, Coaching academies, IVF centers, Diagnostics, D2C). Connects customer WhatsApp conversations to an intelligent task-oriented AI agent, synced with a live staff dashboard for bookings, lead qualification, bot pause/takeover, and automated 24-hr reminder templates.
+**PropFlow OS / Skyline AI** is an enterprise-grade Autonomous WhatsApp Real Estate Sales Engine & Site Visit Operating System designed for luxury property developers, high-end builders, and premier real estate brokerage firms. It connects high-ticket prospective property buyers directly on WhatsApp to an intelligent AI luxury property consultant, seamlessly synced with a director dashboard for site visit tours, inventory presentation, broker takeover, and automated WhatsApp reminder templates.
 
 ## Core Domain Entities & Terms
 
-### 1. Lead
-A customer contact who has initiated a conversation or submitted an opt-in lead form.
-- Attributes: `id`, `phone` (E.164 format, e.g. `+919876543210`), `name`, `status` (`NEW`, `QUALIFIED`, `BOOKED`, `NEEDS_STAFF`, `CLOSED`), `bot_paused` (boolean), `service_interest`, `notes`, `created_at`, `updated_at`.
+### 1. Real Estate Lead & Buyer Dossier
+A high-ticket prospective buyer acquiring luxury residential or commercial property.
+- Attributes: `id`, `phone`, `name`, `status` (`NEW`, `QUALIFIED`, `SITE_VISIT_BOOKED`, `NEGOTIATION`, `NEEDS_BROKER`, `CLOSED_DEAL`), `bot_paused` (boolean), `budget_bracket` (e.g. `₹3 Cr - ₹5 Cr`, `₹5 Cr - ₹10 Cr`, `₹10 Cr+`), `preferred_configuration` (e.g. `3 BHK`, `4 BHK`, `Penthouse`, `Sky Villa`), `purchase_timeline` (`Immediate (0-30 days)`, `1-3 months`, `Investment`), `buyer_type` (`End-User`, `Investor`, `NRI`), `lead_tier` (`ULTRA_HNI`, `HIGH_INTENT`, `INVESTOR`, `EXPLORING`).
 
-### 2. Message
-An individual communication exchanged between customer and business.
-- Attributes: `id`, `lead_id`, `direction` (`INBOUND` | `OUTBOUND`), `sender` (`CUSTOMER` | `BOT` | `STAFF`), `body`, `intent` (`book` | `question` | `human` | `other`), `cost_category` (`service_reply` | `utility_template` | `marketing_template`), `timestamp`, `meta_message_id`.
+### 2. Property Listing & Inventory
+A luxury real estate project or development unit in the agency portfolio.
+- Attributes: `id`, `project_name`, `configuration` (`3 BHK`, `4 BHK`, `Penthouse`, `Commercial Suite`), `carpet_area_sqft`, `price_cr` (price in ₹ Crores, e.g. `₹3.4 Cr` or `$410k`), `possession_timeline`, `rera_registration_number`, `location`, `amenities` (Private Elevator, Golf View, Olympic Pool, Concierge, 3-tier Security), `brochure_url`, `floor_plan_url`.
 
-### 3. Bot Takeover (`bot_paused`)
-A critical human-in-the-loop feature. When a customer is angry, asks complex non-standard questions, or explicitly requests a human (`intent === 'human'`), or when staff clicks "Take Over", the bot's auto-reply is suppressed (`bot_paused = true`). Staff can resume the bot at any time.
+### 3. Site Visit (VIP Private Tour)
+A scheduled physical or virtual walkthrough of the property development.
+- Attributes: `id`, `lead_id`, `visitor_name`, `phone`, `property_id`, `property_name`, `date`, `time_slot`, `assigned_sales_director`, `visitor_count`, `chauffeur_pickup_required` (boolean), `gate_pass_code`, `status` (`CONFIRMED`, `REMINDER_SENT`, `COMPLETED`, `CANCELLED`).
 
-### 4. 24-Hour Customer Care Window
-Meta's messaging policy window:
-- Within 24 hours of customer's last message: Freeform service replies (AI or Staff) are permitted.
-- After 24 hours of silence: Freeform replies are blocked by Meta; only pre-approved Templates (Utility or Marketing) can be sent.
-- The UI displays an active countdown timer badge for every conversation.
+### 4. Broker Takeover (`bot_paused`)
+Critical human-in-the-loop capability for high-ticket transactions. When an Ultra-HNI buyer asks nuanced negotiation questions, makes a specific counter-offer, or requests a human senior broker, or when the sales director clicks "Take Over", the bot's auto-reply is instantly paused (`bot_paused = true`). The director or broker chats directly inside the live thread.
 
-### 5. Meta Template
-Pre-approved message structure registered with WhatsApp Business Platform:
-- `UTILITY`: Appointment reminders (24h before), booking confirmations (₹0.115 in India).
-- `MARKETING`: Re-engagement follow-ups, promotional offers (₹0.8631 in India).
-- `AUTHENTICATION`: OTPs and verification.
+### 5. Meta WhatsApp Real Estate Templates
+Pre-approved message structures complying with Meta Business Platform:
+- `UTILITY`: Site Visit Confirmation with Gate Pass & Directions (₹0.115 in India).
+- `UTILITY`: 24-Hour Prior Site Visit Chauffeur & Tour Reminder (₹0.115).
+- `MARKETING`: New Luxury Tower Launch / VIP Pre-Release Brochure (₹0.8631).
+- `AUTHENTICATION`: Secure Buyer Portal OTP (₹0.115).
 
-### 6. Appointment
-A booked consultation or service slot:
-- Attributes: `id`, `lead_id`, `patient_name`, `phone`, `service`, `date`, `time_slot`, `status` (`CONFIRMED` | `REMINDER_SENT` | `COMPLETED` | `CANCELLED`), `notes`.
+### 6. Brokerage Commission & ROI Model ($1,000/mo Proposition)
+High-ticket real estate transactions have average ticket sizes of ₹3.5 Cr to ₹10 Cr ($400k - $1.2M). At standard developer commission rates of 2%–3%:
+- A single closed ₹3.5 Cr unit produces **₹7,00,000 ($8,400)** in commission.
+- A single closed ₹7.0 Cr penthouse produces **₹14,00,000 ($16,800)** in commission.
+- Converting just 1 to 2 additional leads per year through 8-second WhatsApp engagement pays for an entire year's $1,000/mo software subscription multiple times over.
 
-### 7. Consent Event (DPDP Compliance)
-India Digital Personal Data Protection (DPDP) Act compliance record:
-- Attributes: `id`, `lead_id`, `phone`, `consent_type` (`WHATSAPP_OPT_IN`, `MARKETING_OPT_IN`, `DATA_ERASURE_REQUEST`), `status` (`GRANTED` | `REVOKED`), `timestamp`, `ip_or_source`.
-
-### 8. System Prompt & Guardrails (Meta 2026 AI Policy)
-Meta strictly forbids open-ended general chatbots on WhatsApp Business API since January 2026. The agent must:
-- Confine conversation solely to the business's explicit services and price list.
-- Never invent medical diagnoses or clinical advice.
-- Honestly state "I am an AI assistant for [Business Name]" if asked.
-- Fluently handle English, Hindi, and natural Hinglish.
-
+### 7. Meta 2026 AI Guardrails for Real Estate
+- Strictly limited to property details, floor plans, starting prices, RERA compliance, amenities, and site visits.
+- Refuses general-purpose chat, jokes, or non-real-estate advice.
+- Discloses AI identity honestly when asked.
+- Multilingual fluency across English, Hindi, and Hinglish.

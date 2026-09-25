@@ -37,3 +37,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to process DPDP erasure request' }, { status: 500 });
   }
 }
+

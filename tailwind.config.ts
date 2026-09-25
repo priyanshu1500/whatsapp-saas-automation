@@ -16,13 +16,24 @@ const config: Config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-          50: "#f0fdf4",
-          100: "#dcfce7",
-          500: "#22c55e",
-          600: "#16a34a",
-          700: "#15803d",
+          DEFAULT: "#D4AF37", // Architectural Champagne Gold
+          foreground: "#090D16",
+          50: "#FAF7EE",
+          100: "#F5EED8",
+          200: "#EBDDB1",
+          300: "#E0CA89",
+          400: "#D8B862",
+          500: "#D4AF37",
+          600: "#C5A880",
+          700: "#9A7E56",
+        },
+        luxury: {
+          obsidian: "#090D16",
+          card: "#111726",
+          cardborder: "#1E293B",
+          gold: "#D4AF37",
+          brass: "#C5A880",
+          muted: "#94A3B8",
         },
         whatsapp: {
           light: "#25D366",
@@ -30,7 +41,7 @@ const config: Config = {
           dark: "#075E54",
           teal: "#128C7E",
           chatbg: "#EFEAE2",
-          chatbubble: "#DCF8C6"
+          chatbubble: "#DCF8C6",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -50,12 +61,13 @@ const config: Config = {
         },
       },
       borderRadius: {
-        lg: "0.75rem",
-        md: "0.5rem",
-        sm: "0.25rem",
+        lg: "0.875rem",
+        md: "0.625rem",
+        sm: "0.375rem",
       },
       fontFamily: {
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        display: ["Cinzel", "Playfair Display", "Georgia", "serif"],
       },
     },
   },

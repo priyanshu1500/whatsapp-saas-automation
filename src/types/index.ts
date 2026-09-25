@@ -1,9 +1,20 @@
-export type LeadStatus = 'NEW' | 'CONTACTED' | 'QUALIFIED' | 'BOOKED' | 'NEEDS_STAFF' | 'CLOSED';
+export type LeadStatus =
+  | 'NEW'
+  | 'CONTACTED'
+  | 'QUALIFIED'
+  | 'SITE_VISIT_BOOKED'
+  | 'BOOKED'
+  | 'NEGOTIATION'
+  | 'NEEDS_STAFF'
+  | 'CLOSED';
 
 export type MessageSender = 'CUSTOMER' | 'BOT' | 'STAFF';
 export type MessageDirection = 'INBOUND' | 'OUTBOUND';
 export type MessageCostCategory = 'service_reply' | 'utility_template' | 'marketing_template';
-export type AIIntent = 'book' | 'question' | 'human' | 'refusal';
+export type AIIntent = 'book' | 'question' | 'human' | 'refusal' | 'brochure';
+
+export type LeadTier = 'ULTRA_HNI' | 'HIGH_INTENT' | 'INVESTOR' | 'EXPLORING';
+export type BuyerType = 'End-User' | 'Investor' | 'NRI';
 
 export interface Lead {
   id: string;
@@ -11,8 +22,11 @@ export interface Lead {
   name: string;
   status: LeadStatus;
   bot_paused: boolean;
-  service_interest?: string;
-  preferred_date?: string;
+  service_interest?: string; // Property or configuration interest
+  budget_bracket?: string; // e.g. "₹3.5 Cr - ₹5.0 Cr"
+  preferred_date?: string; // e.g. "This Sunday at 11:00 AM"
+  buyer_type?: BuyerType;
+  lead_tier?: LeadTier;
   notes: string;
   unread_count: number;
   last_message_at: string;
@@ -39,16 +53,36 @@ export type AppointmentStatus = 'CONFIRMED' | 'REMINDER_SENT' | 'COMPLETED' | 'C
 export interface Appointment {
   id: string;
   lead_id: string;
-  patient_name: string;
+  patient_name: string; // Used as visitor/buyer name
   phone: string;
-  service: string;
+  service: string; // Property name / configuration
   date: string; // YYYY-MM-DD
-  time_slot: string; // e.g. "10:30 AM"
-  doctor_or_staff: string;
+  time_slot: string; // e.g. "11:00 AM"
+  doctor_or_staff: string; // Assigned Senior Property Consultant
   status: AppointmentStatus;
   reminder_sent: boolean;
   reminder_sent_at?: string;
+  chauffeur_pickup_required?: boolean;
+  gate_pass_code?: string;
   created_at: string;
+}
+
+export interface PropertyListing {
+  id: string;
+  title: string;
+  slug: string;
+  location: string;
+  configuration: string; // e.g. "3 & 4 BHK Luxury Residences"
+  carpet_area_sqft: number;
+  price_cr: number; // In ₹ Crores
+  price_display: string; // e.g. "₹3.40 Cr"
+  possession_date: string; // e.g. "Dec 2026"
+  rera_number: string;
+  status: 'Ready to Move' | 'Under Construction' | 'Pre-Launch';
+  amenities: string[];
+  description: string;
+  image_url: string;
+  brochure_filename: string;
 }
 
 export interface ServiceItem {
@@ -63,12 +97,13 @@ export interface ServiceItem {
 export interface BusinessConfig {
   id: string;
   name: string;
-  niche: 'dental' | 'dermatology' | 'real_estate' | 'coaching' | 'gym' | 'd2c';
+  niche: 'real_estate' | 'dental' | 'dermatology' | 'coaching' | 'gym' | 'd2c';
   phone_number: string;
   display_phone: string;
   address: string;
   timings: string;
-  doctor_name: string;
+  doctor_name: string; // Lead Broker / Managing Director
+  rera_registration?: string;
   currency: string;
   whatsapp_phone_number_id?: string;
   whatsapp_waba_id?: string;
@@ -78,6 +113,7 @@ export interface BusinessConfig {
   guardrail_refuse_offtopic: boolean;
   guardrail_honest_bot: boolean;
   services: ServiceItem[];
+  properties?: PropertyListing[];
 }
 
 export interface MetaTemplate {
@@ -106,7 +142,8 @@ export interface AIResponsePayload {
   intent: AIIntent;
   name?: string;
   preferred_date?: string;
-  service?: string;
+  service?: string; // Property or configuration
+  budget?: string;
   reasoning?: string;
   refused_reason?: string;
 }

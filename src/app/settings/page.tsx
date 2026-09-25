@@ -15,37 +15,40 @@ import {
   CheckCircle2,
   Sparkles,
   Key,
+  Award,
+  Lock,
+  Globe,
+  Sliders,
 } from 'lucide-react';
-import { BusinessConfig, ServiceItem } from '@/types';
+import { BusinessConfig } from '@/types';
 
-const NICHE_PRESETS = [
+const LUXURY_REAL_ESTATE_PRESETS = [
   {
-    id: 'dental',
-    name: 'Smile Clinic Delhi',
-    doctor: 'Dr. Arjun Sharma (BDS, MDS)',
-    address: 'Shop 14, Main Market, Green Park, New Delhi - 110016',
-    timings: 'Mon-Sat: 10:00 AM – 8:00 PM | Sun: 11:00 AM – 4:00 PM',
+    id: 'gurugram_luxury',
+    name: 'Skyline Luxury Estates Gurugram',
+    doctor: 'Vikram Malhotra (Senior Luxury Property Director)',
+    address: 'DLF Golf Course Road, Sector 54, Gurugram, Haryana - 122002',
+    timings: 'Monday to Sunday: 9:00 AM – 8:00 PM (Private Viewings by Appointment)',
+    phone: '+919876543210',
+    display_phone: '+91 98765 43210',
   },
   {
-    id: 'dermatology',
-    name: 'Apex Skin & Laser Clinic',
-    doctor: 'Dr. Meera Nambiar (MD Dermatologist)',
-    address: '3rd Floor, Defence Colony, New Delhi - 110024',
-    timings: 'Mon-Sat: 11:00 AM – 7:30 PM',
+    id: 'mumbai_hni',
+    name: 'South Mumbai Signature Residences',
+    doctor: 'Ananya Singhania (Head of Private Client Group)',
+    address: 'Worli Sea Face, Worli, Mumbai, Maharashtra - 400018',
+    timings: 'All Days: 10:00 AM – 7:30 PM (Concierge Access)',
+    phone: '+919822334455',
+    display_phone: '+91 98223 34455',
   },
   {
-    id: 'real_estate',
-    name: 'Skyline Luxury Homes Gurugram',
-    doctor: 'Vikram Malhotra (Lead Property Advisor)',
-    address: 'Golf Course Road, Sector 54, Gurugram, Haryana',
-    timings: 'All Days: 9:30 AM – 7:00 PM',
-  },
-  {
-    id: 'coaching',
-    name: 'Prestige Academy IIT-JEE & NEET',
-    doctor: 'Prof. R.K. Gupta (Academic Director)',
-    address: 'Kalu Sarai, Near Hauz Khas Metro, New Delhi',
-    timings: 'Mon-Sat: 9:00 AM – 8:00 PM',
+    id: 'bangalore_golf',
+    name: 'Prestige & Embassy Private Reserve',
+    doctor: 'Rajeev Chandrasekhar (Managing Partner)',
+    address: 'Windsor Square, Sankey Road, Bengaluru, Karnataka - 560052',
+    timings: 'Monday to Saturday: 9:30 AM – 7:00 PM',
+    phone: '+919844556677',
+    display_phone: '+91 98445 56677',
   },
 ];
 
@@ -54,10 +57,6 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
-
-  const [newServiceName, setNewServiceName] = useState('');
-  const [newServicePrice, setNewServicePrice] = useState<number>(1500);
-  const [newServiceDesc, setNewServiceDesc] = useState('');
 
   const fetchSettings = async () => {
     try {
@@ -87,7 +86,7 @@ export default function SettingsPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setStatusMessage('Configuration and AI Grounding saved successfully!');
+        setStatusMessage('Developer Configuration & RERA Grounding saved successfully!');
       }
     } catch (e) {
       setStatusMessage('Error saving configuration.');
@@ -96,7 +95,7 @@ export default function SettingsPage() {
     }
   };
 
-  const applyNichePreset = (preset: typeof NICHE_PRESETS[0]) => {
+  const applyPreset = (preset: typeof LUXURY_REAL_ESTATE_PRESETS[0]) => {
     if (!config) return;
     setConfig({
       ...config,
@@ -104,317 +103,287 @@ export default function SettingsPage() {
       doctor_name: preset.doctor,
       address: preset.address,
       timings: preset.timings,
+      phone_number: preset.phone,
+      display_phone: preset.display_phone,
     });
-  };
-
-  const addService = () => {
-    if (!config || !newServiceName.trim()) return;
-    const newService: ServiceItem = {
-      id: `srv-${Date.now()}`,
-      name: newServiceName,
-      category: 'General',
-      price_inr: Number(newServicePrice),
-      duration_minutes: 30,
-      description: newServiceDesc || 'Service consultation and treatment',
-    };
-    setConfig({
-      ...config,
-      services: [...config.services, newService],
-    });
-    setNewServiceName('');
-    setNewServicePrice(1500);
-    setNewServiceDesc('');
-  };
-
-  const removeService = (id: string) => {
-    if (!config) return;
-    setConfig({
-      ...config,
-      services: config.services.filter((s) => s.id !== id),
-    });
+    setStatusMessage(`Applied preset: ${preset.name}`);
   };
 
   if (loading || !config) {
-    return <div className="p-8 text-center text-slate-400">Loading settings...</div>;
+    return (
+      <div className="p-8 max-w-7xl mx-auto w-full flex items-center justify-center min-h-[400px]">
+        <div className="text-slate-400 text-xs flex items-center gap-2">
+          <div className="w-4 h-4 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+          <span>Loading Enterprise Real Estate Config...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="p-8 max-w-7xl mx-auto w-full space-y-8">
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Knowledge Base & AI Configuration</h1>
-          <p className="text-sm text-slate-500">
-            Customize clinic prices, Meta 2026 AI guardrails, and Meta WhatsApp Cloud API credentials.
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-300 border border-amber-500/30">
+              Enterprise Control Center
+            </span>
+            <span className="text-xs text-slate-400">RERA & Meta Cloud API</span>
+          </div>
+          <h1 className="text-2xl font-bold text-white tracking-tight mt-1">
+            PropTech Configuration & AI Knowledge Base
+          </h1>
+          <p className="text-sm text-slate-400">
+            Ground the WhatsApp AI Advisor with verified development catalogs, RERA registration numbers, and concierge rules.
           </p>
         </div>
 
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl transition text-xs shadow-md shadow-emerald-600/20"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 transition shadow-sm active:scale-[0.98] disabled:opacity-50"
         >
           <Save className="w-4 h-4" />
-          <span>{saving ? 'Saving...' : 'Save All Settings'}</span>
+          <span>{saving ? 'Saving...' : 'Deploy Grounding Changes'}</span>
         </button>
       </div>
 
       {statusMessage && (
-        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 px-4 py-3 rounded-xl text-xs font-semibold flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-          <span>{statusMessage}</span>
+        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span>{statusMessage}</span>
+          </div>
+          <button onClick={() => setStatusMessage(null)} className="text-slate-400 hover:text-white">
+            ✕
+          </button>
         </div>
       )}
 
       {/* Preset Switcher */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
-        <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <Building2 className="w-4 h-4 text-emerald-600" />
-          Quick Niche Presets (Indian Business Verticals)
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-          {NICHE_PRESETS.map((p) => (
+      <div className="bg-[#111625] border border-slate-800 rounded-2xl p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-bold text-sm text-white flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-400" />
+              <span>Developer & Location Profiles</span>
+            </h3>
+            <p className="text-xs text-slate-400">
+              Switch corporate identities to demonstrate to luxury clients in Delhi NCR, Mumbai, or Bengaluru.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {LUXURY_REAL_ESTATE_PRESETS.map((preset) => (
             <button
-              key={p.id}
-              onClick={() => applyNichePreset(p)}
-              className="text-left p-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 hover:bg-emerald-50/40 dark:hover:bg-emerald-950/20 transition space-y-1"
+              key={preset.id}
+              onClick={() => applyPreset(preset)}
+              className={`p-4 rounded-xl text-left border transition ${
+                config.name === preset.name
+                  ? 'border-amber-500/50 bg-amber-500/10 text-white'
+                  : 'border-slate-800 hover:border-slate-700 bg-[#0a0e17] text-slate-300'
+              }`}
             >
-              <div className="font-bold text-slate-900 dark:text-white">{p.name}</div>
-              <div className="text-[11px] text-slate-500 truncate">{p.doctor}</div>
+              <div className="font-bold text-xs text-amber-300">{preset.name}</div>
+              <div className="text-[11px] text-slate-400 mt-1">{preset.doctor}</div>
+              <div className="text-[10px] text-slate-500 truncate mt-1">{preset.address}</div>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Grid: Business Info & Guardrails */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Business Profile */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-emerald-600" />
-            Clinic & Business Profile
-          </h2>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left Column: Developer Profile (7 cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="bg-[#111625] border border-slate-800 rounded-2xl p-6 space-y-5">
+            <h3 className="font-bold text-sm text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+              <Building2 className="w-4 h-4 text-amber-400" />
+              <span>Developer Identity & Private Office</span>
+            </h3>
 
-          <div className="space-y-3 text-xs">
-            <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300">Business Display Name</label>
-              <input
-                type="text"
-                value={config.name}
-                onChange={(e) => setConfig({ ...config, name: e.target.value })}
-                className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300">Head Doctor / Specialist</label>
-              <input
-                type="text"
-                value={config.doctor_name}
-                onChange={(e) => setConfig({ ...config, doctor_name: e.target.value })}
-                className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300">Clinic Address</label>
-              <input
-                type="text"
-                value={config.address}
-                onChange={(e) => setConfig({ ...config, address: e.target.value })}
-                className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
-              />
-            </div>
-
-            <div>
-              <label className="font-semibold text-slate-700 dark:text-slate-300">Operating Timings</label>
-              <input
-                type="text"
-                value={config.timings}
-                onChange={(e) => setConfig({ ...config, timings: e.target.value })}
-                className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Meta 2026 AI Policy Guardrails */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            Meta 2026 Policy Guardrails
-          </h2>
-
-          <div className="space-y-4 text-xs">
-            <div className="flex items-start justify-between gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-              <div className="space-y-0.5">
-                <span className="font-bold text-slate-900 dark:text-white">Task-Focused Containment</span>
-                <p className="text-[11px] text-slate-500">
-                  Refuse general chit-chat, poems, recipes, politics, and coding.
-                </p>
+            <div className="space-y-4 text-xs">
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1">Developer / Brokerage Brand Name</label>
+                <input
+                  type="text"
+                  value={config.name}
+                  onChange={(e) => setConfig({ ...config, name: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                />
               </div>
-              <input
-                type="checkbox"
-                checked={config.guardrail_refuse_offtopic}
-                onChange={(e) => setConfig({ ...config, guardrail_refuse_offtopic: e.target.checked })}
-                className="mt-1 w-4 h-4 accent-emerald-600"
-              />
-            </div>
 
-            <div className="flex items-start justify-between gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-              <div className="space-y-0.5">
-                <span className="font-bold text-slate-900 dark:text-white">Strict Medical Advice Refusal</span>
-                <p className="text-[11px] text-slate-500">
-                  Never prescribe medicines or diagnose. Always route to in-clinic consultation.
-                </p>
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1">Senior Property Advisor / Director</label>
+                <input
+                  type="text"
+                  value={config.doctor_name}
+                  onChange={(e) => setConfig({ ...config, doctor_name: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                />
               </div>
-              <input
-                type="checkbox"
-                checked={config.guardrail_refuse_medical}
-                onChange={(e) => setConfig({ ...config, guardrail_refuse_medical: e.target.checked })}
-                className="mt-1 w-4 h-4 accent-emerald-600"
-              />
-            </div>
 
-            <div className="flex items-start justify-between gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-              <div className="space-y-0.5">
-                <span className="font-bold text-slate-900 dark:text-white">Honest AI Bot Transparency</span>
-                <p className="text-[11px] text-slate-500">
-                  Honestly confirm bot status if the patient asks "Am I talking to a bot?".
-                </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-slate-300 font-semibold mb-1">WhatsApp Business Number</label>
+                  <input
+                    type="text"
+                    value={config.display_phone}
+                    onChange={(e) => setConfig({ ...config, display_phone: e.target.value })}
+                    className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50 font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-300 font-semibold mb-1">Currency Standard</label>
+                  <input
+                    type="text"
+                    value={config.currency}
+                    onChange={(e) => setConfig({ ...config, currency: e.target.value })}
+                    className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                  />
+                </div>
               </div>
-              <input
-                type="checkbox"
-                checked={config.guardrail_honest_bot}
-                onChange={(e) => setConfig({ ...config, guardrail_honest_bot: e.target.checked })}
-                className="mt-1 w-4 h-4 accent-emerald-600"
+
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1">Experience Center Address</label>
+                <input
+                  type="text"
+                  value={config.address}
+                  onChange={(e) => setConfig({ ...config, address: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                />
+              </div>
+
+              <div>
+                <label className="block text-slate-300 font-semibold mb-1">Private Tour Operating Hours</label>
+                <input
+                  type="text"
+                  value={config.timings}
+                  onChange={(e) => setConfig({ ...config, timings: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* AI Grounding System Prompt Instructions */}
+          <div className="bg-[#111625] border border-slate-800 rounded-2xl p-6 space-y-4">
+            <h3 className="font-bold text-sm text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>Custom AI Grounding & Knowledge Base Directives</span>
+            </h3>
+
+            <div>
+              <label className="block text-xs text-slate-400 mb-2">
+                Inject custom knowledge (e.g. exclusive pre-launch discounts, preferred bank approvals, club memberships):
+              </label>
+              <textarea
+                rows={4}
+                value={config.system_prompt_custom || ''}
+                onChange={(e) => setConfig({ ...config, system_prompt_custom: e.target.value })}
+                placeholder="e.g. For The Grand Horizon Sky Villas, HDFC and ICICI Bank offer instant 75% loan pre-approvals for Tier-1 corporate executives..."
+                className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500/50"
               />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Services & Price Sheet Table (Grounding) */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-5">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-bold text-slate-900 dark:text-white">
-              Grounded Services & Price Sheet Table
-            </h2>
-            <p className="text-xs text-slate-500">
-              The AI Agent references this exact price sheet. It will never invent prices or discount without permission.
-            </p>
+        {/* Right Column: Meta API & Guardrails (5 cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* AI Guardrails */}
+          <div className="bg-[#111625] border border-slate-800 rounded-2xl p-6 space-y-5">
+            <h3 className="font-bold text-sm text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              <span>Real Estate Guardrails & Compliance</span>
+            </h3>
+
+            <div className="space-y-4 text-xs">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={config.guardrail_refuse_offtopic}
+                  onChange={(e) => setConfig({ ...config, guardrail_refuse_offtopic: e.target.checked })}
+                  className="accent-amber-500 w-4 h-4 rounded mt-0.5"
+                />
+                <div>
+                  <div className="font-semibold text-slate-200">Refuse Off-Topic Queries</div>
+                  <div className="text-[11px] text-slate-400">
+                    Confine the AI exclusively to property inquiries, floor plans, RERA details, and site visits.
+                  </div>
+                </div>
+              </label>
+
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={config.guardrail_honest_bot}
+                  onChange={(e) => setConfig({ ...config, guardrail_honest_bot: e.target.checked })}
+                  className="accent-amber-500 w-4 h-4 rounded mt-0.5"
+                />
+                <div>
+                  <div className="font-semibold text-slate-200">Enforce RERA & Honest Bot Transparency</div>
+                  <div className="text-[11px] text-slate-400">
+                    Always append official RERA registration numbers to price quotes and disclose AI assistance when asked.
+                  </div>
+                </div>
+              </label>
+
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={config.guardrail_refuse_medical}
+                  onChange={(e) => setConfig({ ...config, guardrail_refuse_medical: e.target.checked })}
+                  className="accent-amber-500 w-4 h-4 rounded mt-0.5"
+                />
+                <div>
+                  <div className="font-semibold text-slate-200">VIP Human Takeover Alert Trigger</div>
+                  <div className="text-[11px] text-slate-400">
+                    Instantly notify the Managing Director when buyers inquire about 20:80 subvention or price discounts.
+                  </div>
+                </div>
+              </label>
+            </div>
           </div>
-        </div>
 
-        {/* Existing services table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 font-semibold border-b border-slate-200 dark:border-slate-800">
-              <tr>
-                <th className="p-3">Treatment / Service Name</th>
-                <th className="p-3">Price (₹ INR)</th>
-                <th className="p-3">Duration (mins)</th>
-                <th className="p-3">Clinical Description</th>
-                <th className="p-3 text-right">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {config.services.map((srv) => (
-                <tr key={srv.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                  <td className="p-3 font-semibold text-slate-900 dark:text-white">{srv.name}</td>
-                  <td className="p-3 font-bold text-emerald-600">₹{srv.price_inr.toLocaleString('en-IN')}</td>
-                  <td className="p-3 text-slate-500">{srv.duration_minutes}m</td>
-                  <td className="p-3 text-slate-600 dark:text-slate-400">{srv.description}</td>
-                  <td className="p-3 text-right">
-                    <button
-                      onClick={() => removeService(srv.id)}
-                      className="text-rose-500 hover:text-rose-700 p-1"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+          {/* Meta Cloud API Integration Credentials */}
+          <div className="bg-[#111625] border border-slate-800 rounded-2xl p-6 space-y-4">
+            <h3 className="font-bold text-sm text-white flex items-center gap-2 border-b border-slate-800 pb-3">
+              <Key className="w-4 h-4 text-amber-400" />
+              <span>Meta Cloud API Production Keys</span>
+            </h3>
 
-        {/* Add new service form */}
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 space-y-3">
-          <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">Add New Service to Catalog</h4>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
-            <input
-              type="text"
-              placeholder="e.g. Tooth Extraction"
-              value={newServiceName}
-              onChange={(e) => setNewServiceName(e.target.value)}
-              className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
-            />
-            <input
-              type="number"
-              placeholder="Price (₹)"
-              value={newServicePrice}
-              onChange={(e) => setNewServicePrice(Number(e.target.value))}
-              className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
-            />
-            <input
-              type="text"
-              placeholder="Brief description"
-              value={newServiceDesc}
-              onChange={(e) => setNewServiceDesc(e.target.value)}
-              className="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
-            />
-            <button
-              onClick={addService}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center justify-center gap-1.5"
-            >
-              <Plus className="w-4 h-4" />
-              Add to Catalog
-            </button>
-          </div>
-        </div>
-      </div>
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="block text-slate-400 mb-1">WhatsApp Phone Number ID</label>
+                <input
+                  type="text"
+                  value={config.whatsapp_phone_number_id}
+                  onChange={(e) => setConfig({ ...config, whatsapp_phone_number_id: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-2.5 text-white font-mono text-xs focus:outline-none"
+                />
+              </div>
 
-      {/* Meta WhatsApp Cloud API Credentials */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-        <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <Key className="w-4 h-4 text-emerald-600" />
-          Meta WhatsApp Cloud API Credentials (Optional for Live Mode)
-        </h2>
-        <p className="text-xs text-slate-500">
-          Enter credentials from developers.facebook.com to connect a live verified business phone number. The simulator works even without these!
-        </p>
+              <div>
+                <label className="block text-slate-400 mb-1">WhatsApp Business Account ID (WABA)</label>
+                <input
+                  type="text"
+                  value={config.whatsapp_waba_id}
+                  onChange={(e) => setConfig({ ...config, whatsapp_waba_id: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-2.5 text-white font-mono text-xs focus:outline-none"
+                />
+              </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <div>
-            <label className="font-semibold text-slate-700 dark:text-slate-300">WhatsApp Phone Number ID</label>
-            <input
-              type="text"
-              placeholder="e.g. 109827364512345"
-              value={config.whatsapp_phone_number_id || ''}
-              onChange={(e) => setConfig({ ...config, whatsapp_phone_number_id: e.target.value })}
-              className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-mono"
-            />
-          </div>
-          <div>
-            <label className="font-semibold text-slate-700 dark:text-slate-300">WhatsApp Business Account (WABA) ID</label>
-            <input
-              type="text"
-              placeholder="e.g. 209871625344556"
-              value={config.whatsapp_waba_id || ''}
-              onChange={(e) => setConfig({ ...config, whatsapp_waba_id: e.target.value })}
-              className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-mono"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="font-semibold text-slate-700 dark:text-slate-300">Webhook Verify Token</label>
-            <input
-              type="text"
-              value={config.whatsapp_verify_token || ''}
-              onChange={(e) => setConfig({ ...config, whatsapp_verify_token: e.target.value })}
-              className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-mono"
-            />
-            <span className="text-[10px] text-slate-400">Webhook URL: https://your-domain.com/api/webhook/whatsapp</span>
+              <div>
+                <label className="block text-slate-400 mb-1">Webhook Verify Token</label>
+                <input
+                  type="text"
+                  value={config.whatsapp_verify_token}
+                  onChange={(e) => setConfig({ ...config, whatsapp_verify_token: e.target.value })}
+                  className="w-full bg-[#0a0e17] border border-slate-800 rounded-xl p-2.5 text-white font-mono text-xs focus:outline-none"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
