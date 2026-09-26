@@ -66,23 +66,30 @@ export async function POST(req: NextRequest) {
     let newAppointment = null;
     // 6. Handle Intent side effects
     if (aiResult.intent === 'book') {
+      const isChauffeur = /chauffeur|pickup|car|cab|bmw|mercedes/i.test(message);
+      const gatePass = `SKY-VIP-${Math.floor(1000 + Math.random() * 9000)}`;
       newAppointment = db.createAppointment({
         lead_id: lead.id,
         patient_name: name,
         phone,
-        service: aiResult.service || 'Dental Consultation & X-Ray',
+        service: aiResult.service || 'The Grand Horizon Penthouse & Sky Villas',
         date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-        time_slot: aiResult.preferred_date || '04:00 PM',
-        doctor_or_staff: config.doctor_name,
+        time_slot: aiResult.preferred_date || '11:00 AM',
+        doctor_or_staff: config.doctor_name || 'Raghav Singhal (Managing Director)',
         status: 'CONFIRMED',
         reminder_sent: false,
+        chauffeur_pickup_required: isChauffeur,
+        gate_pass_code: gatePass,
       });
-      db.updateLead(lead.id, { status: 'BOOKED', service_interest: aiResult.service });
+      db.updateLead(lead.id, {
+        status: 'SITE_VISIT_BOOKED',
+        service_interest: aiResult.service || 'The Grand Horizon Penthouse & Sky Villas',
+      });
     } else if (aiResult.intent === 'human') {
       db.updateLead(lead.id, {
         status: 'NEEDS_STAFF',
         bot_paused: true,
-        notes: 'Customer requested human handover in WhatsApp Simulator.',
+        notes: 'Customer requested Managing Director handover in WhatsApp Simulator.',
       });
     }
 

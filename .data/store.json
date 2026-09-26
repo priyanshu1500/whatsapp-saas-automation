@@ -245,18 +245,18 @@
       "id": "lead-1",
       "phone": "+919811223344",
       "name": "Vikramaditya Singhania",
-      "status": "SITE_VISIT_BOOKED",
+      "status": "BOOKED",
       "bot_paused": false,
       "service_interest": "The Grand Horizon Penthouse & Sky Villas",
       "budget_bracket": "₹8.5 Cr – ₹14.0 Cr",
-      "preferred_date": "This Sunday at 11:00 AM",
+      "preferred_date": "2026-09-26 at Tomorrow",
       "buyer_type": "End-User",
       "lead_tier": "ULTRA_HNI",
       "notes": "Inquired on WhatsApp for 4 BHK Duplex Penthouse. Requested private elevator access & golf view. Chauffeur pickup confirmed for Sunday 11 AM.",
-      "unread_count": 0,
-      "last_message_at": "2026-09-25T19:00:55.424Z",
+      "unread_count": 2,
+      "last_message_at": "2026-09-25T19:22:38.548Z",
       "created_at": "2026-09-25T16:20:55.425Z",
-      "updated_at": "2026-09-25T19:00:55.425Z"
+      "updated_at": "2026-09-25T19:22:38.575Z"
     },
     {
       "id": "lead-2",
@@ -365,6 +365,52 @@
       "cost_category": "service_reply",
       "cost_inr": 0,
       "timestamp": "2026-09-25T19:11:55.426Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "What is the price, RERA number, and carpet area for 4 BHK Sky Villa in Grand Horizon?",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790364148443-535",
+      "timestamp": "2026-09-25T19:22:28.443Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "The Grand Horizon Penthouse & Sky Villas (Golf Course Extension Road, Sector 65, Gurugram) starts at ₹8.50 Cr – ₹14.0 Cr for 4 & 5 BHK Duplex Sky Villas with 4,250 sq.ft carpet area. Key highlights: Private High-Speed Elevator, Panoramic Golf View Balcony, Infinity Rooftop Pool. (RERA: RC/REP/HARERA/GGM/2023/88). Would you like to schedule a private preview or download the floor plans?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790364148484-654",
+      "timestamp": "2026-09-25T19:22:28.484Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "Yes, please schedule a private site visit for tomorrow at 11 AM with chauffeur pickup for Grand Horizon.",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790364158547-983",
+      "timestamp": "2026-09-25T19:22:38.547Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Excellent! Your VIP Private Site Visit for The Grand Horizon Penthouse & Sky Villas has been confirmed for Tomorrow. Raghav Singhal (Managing Director) will receive you at our Horizon Experience Lounge (Two Horizon Centre, Golf Course Rd). Gate Pass Code: #VIP-8491. Would you require complimentary chauffeur pickup from your residence?",
+      "intent": "book",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790364158548-390",
+      "timestamp": "2026-09-25T19:22:38.548Z"
     }
   ],
   "appointments": [
@@ -382,6 +428,20 @@
       "chauffeur_pickup_required": true,
       "gate_pass_code": "SKY-VIP-7701",
       "created_at": "2026-09-25T19:00:55.426Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "patient_name": "Vikramaditya Singhania",
+      "phone": "+919811223344",
+      "service": "The Grand Horizon Penthouse & Sky Villas",
+      "date": "2026-09-26",
+      "time_slot": "Tomorrow",
+      "doctor_or_staff": "Raghav Singhal (Managing Director, Luxury Sales)",
+      "status": "CONFIRMED",
+      "reminder_sent": false,
+      "id": "apt-1790364158561-238",
+      "gate_pass_code": "VIP-9932",
+      "created_at": "2026-09-25T19:22:38.561Z"
     }
   ],
   "templates": [

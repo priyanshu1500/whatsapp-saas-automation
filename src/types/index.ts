@@ -23,7 +23,11 @@ export interface Lead {
   status: LeadStatus;
   bot_paused: boolean;
   service_interest?: string; // Property or configuration interest
+  property_interest?: string;
   budget_bracket?: string; // e.g. "₹3.5 Cr - ₹5.0 Cr"
+  budget_range?: string;
+  deal_value_estimate?: number;
+  financing_status?: string;
   preferred_date?: string; // e.g. "This Sunday at 11:00 AM"
   buyer_type?: BuyerType;
   lead_tier?: LeadTier;
