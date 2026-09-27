@@ -253,10 +253,10 @@
       "buyer_type": "End-User",
       "lead_tier": "ULTRA_HNI",
       "notes": "Inquired on WhatsApp for 4 BHK Duplex Penthouse. Requested private elevator access & golf view. Chauffeur pickup confirmed for Sunday 11 AM.",
-      "unread_count": 2,
-      "last_message_at": "2026-09-25T19:22:38.548Z",
+      "unread_count": 3,
+      "last_message_at": "2026-09-27T17:49:36.192Z",
       "created_at": "2026-09-25T16:20:55.425Z",
-      "updated_at": "2026-09-25T19:22:38.575Z"
+      "updated_at": "2026-09-27T17:49:36.192Z"
     },
     {
       "id": "lead-2",
@@ -411,6 +411,29 @@
       "cost_inr": 0,
       "id": "msg-1790364158548-390",
       "timestamp": "2026-09-25T19:22:38.548Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "mujhe enquiry karni hai flat ke regarding ?",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790531376187-593",
+      "timestamp": "2026-09-27T17:49:36.187Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Namaste! Welcome to Skyline Luxury Estates, Gurugram. I am your autonomous luxury property consultant. I can provide confidential floor plans, exact pricing in ₹ Crores, RERA compliance details, or arrange an accompanied chauffeur site visit. How may I assist your property search today?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790531376192-970",
+      "timestamp": "2026-09-27T17:49:36.192Z"
     }
   ],
   "appointments": [
