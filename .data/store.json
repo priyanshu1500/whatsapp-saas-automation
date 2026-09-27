@@ -245,18 +245,18 @@
       "id": "lead-1",
       "phone": "+919811223344",
       "name": "Vikramaditya Singhania",
-      "status": "BOOKED",
-      "bot_paused": false,
+      "status": "NEEDS_STAFF",
+      "bot_paused": true,
       "service_interest": "The Grand Horizon Penthouse & Sky Villas",
       "budget_bracket": "₹8.5 Cr – ₹14.0 Cr",
       "preferred_date": "2026-09-26 at Tomorrow",
       "buyer_type": "End-User",
       "lead_tier": "ULTRA_HNI",
-      "notes": "Inquired on WhatsApp for 4 BHK Duplex Penthouse. Requested private elevator access & golf view. Chauffeur pickup confirmed for Sunday 11 AM.",
-      "unread_count": 3,
-      "last_message_at": "2026-09-27T17:49:36.192Z",
+      "notes": "Inquired on WhatsApp for 4 BHK Duplex Penthouse. Requested private elevator access & golf view. Chauffeur pickup confirmed for Sunday 11 AM. | [Human Takeover initiated at 12:45:35 am]",
+      "unread_count": 0,
+      "last_message_at": "2026-09-27T19:15:36.328Z",
       "created_at": "2026-09-25T16:20:55.425Z",
-      "updated_at": "2026-09-27T17:49:36.192Z"
+      "updated_at": "2026-09-27T19:15:36.330Z"
     },
     {
       "id": "lead-2",
@@ -434,6 +434,40 @@
       "cost_inr": 0,
       "id": "msg-1790531376192-970",
       "timestamp": "2026-09-27T17:49:36.192Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "Mujhe Golf Course Road par 10 Crore budget me independent villa dekhna hai",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790536376093-484",
+      "timestamp": "2026-09-27T19:12:56.093Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "The Crestview Signature Golf Villas (Aravalli Hills Foothills, Sector 63, Gurugram) starts at ₹11.50 Cr – ₹18.0 Cr for 5 BHK Independent Villas with 5,800 sq.ft carpet area. Key highlights: Private 400 sq.yd Landscaped Lawn, Basement Home Cinema & Wine Cellar, Heated Indoor Lap Pool. (RERA: RC/REP/HARERA/GGM/2024/405). Would you like to schedule a private preview or download the floor plans?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790536376122-609",
+      "timestamp": "2026-09-27T19:12:56.122Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "STAFF",
+      "body": "Hello Mr. Singhania, this is Managing Director Vikram Malhotra.",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790536536328-822",
+      "timestamp": "2026-09-27T19:15:36.328Z"
     }
   ],
   "appointments": [
