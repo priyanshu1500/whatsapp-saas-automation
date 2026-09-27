@@ -10,9 +10,13 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { isAuthenticated, isLoading } = useAuth();
 
-  // If directly visiting the /login page, always render it directly without sidebar
+  // If directly visiting the /login page, always render it directly with full scroll
   if (pathname === '/login') {
-    return <>{children}</>;
+    return (
+      <div className="min-h-screen w-full overflow-x-hidden overflow-y-auto bg-[#060911]">
+        {children}
+      </div>
+    );
   }
 
   // Loading state
@@ -29,16 +33,20 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // If not authenticated, render the top-designer LoginPage directly
+  // If not authenticated, render the top-designer LoginPage directly with smooth scrolling
   if (!isAuthenticated) {
-    return <LoginPage />;
+    return (
+      <div className="min-h-screen w-full overflow-x-hidden overflow-y-auto bg-[#060911]">
+        <LoginPage />
+      </div>
+    );
   }
 
-  // Authenticated: Render dashboard layout with sidebar
+  // Authenticated: Render dashboard layout with sidebar and responsive main container
   return (
-    <div className="h-full bg-[#060911] text-slate-100 flex overflow-hidden">
+    <div className="min-h-screen md:h-screen w-full bg-[#060911] text-slate-100 flex flex-col md:flex-row overflow-x-hidden md:overflow-hidden">
       <AppSidebar />
-      <main className="flex-1 overflow-y-auto flex flex-col h-screen bg-[#080C14]">
+      <main className="flex-1 overflow-x-hidden overflow-y-auto flex flex-col min-h-screen md:h-screen bg-[#080C14]">
         {children}
       </main>
     </div>
