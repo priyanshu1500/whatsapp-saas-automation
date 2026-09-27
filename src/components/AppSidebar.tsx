@@ -18,12 +18,12 @@ import {
   Compass,
   Key,
   BookOpen,
-  Presentation,
+  LogOut,
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 const NAV_ITEMS = [
   { label: 'Director Overview', href: '/', icon: LayoutDashboard },
-  { label: 'Executive Pitch Deck', href: '/pitchdeck', icon: Presentation, badge: 'Pitch' },
   { label: 'How to Use & Demo Guide', href: '/how-to-use', icon: BookOpen, badge: 'Guide' },
   { label: 'WhatsApp Simulator', href: '/simulator', icon: Smartphone, badge: 'Sandbox' },
   { label: 'VIP Client Inbox', href: '/conversations', icon: MessageSquare, badgeCountKey: 'conversations' },
@@ -37,6 +37,7 @@ const NAV_ITEMS = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
   const [unreadCount, setUnreadCount] = useState(1);
 
   useEffect(() => {
@@ -127,15 +128,36 @@ export function AppSidebar() {
         })}
       </nav>
 
-      {/* Footer Info */}
-      <div className="p-3 border-t border-[#1E293B]">
-        <div className="bg-[#111726] rounded-xl p-3 border border-[#1E293B]">
-          <div className="flex items-center space-x-2 text-[#D4AF37] mb-1">
-            <ShieldCheck className="w-4 h-4" />
-            <span className="text-xs font-semibold">RERA-Registered Agent</span>
+      {/* Authenticated User & Footer Info */}
+      <div className="p-3 border-t border-[#1E293B] space-y-2">
+        {user && (
+          <div className="bg-[#111726] rounded-xl p-2.5 border border-[#1E293B] flex items-center justify-between">
+            <div className="flex items-center space-x-2.5 overflow-hidden">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center justify-center font-bold text-xs shrink-0">
+                {user.avatar || 'RO'}
+              </div>
+              <div className="overflow-hidden">
+                <p className="text-xs font-semibold text-white truncate">{user.name}</p>
+                <p className="text-[10px] text-slate-400 truncate">{user.role}</p>
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              title="Sign Out"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors shrink-0"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
-          <p className="text-[11px] text-slate-400 leading-tight">
-            High-Ticket WhatsApp Sales • 24/7 Chauffeur Tour Bookings
+        )}
+
+        <div className="bg-[#0D121F] rounded-xl p-2.5 border border-[#1E293B]">
+          <div className="flex items-center space-x-1.5 text-amber-400 mb-0.5">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-semibold">HARERA Registered OS</span>
+          </div>
+          <p className="text-[10px] text-slate-400 leading-tight">
+            Encrypted Meta Cloud API • 24/7 VIP Chauffeur Pass
           </p>
         </div>
       </div>
