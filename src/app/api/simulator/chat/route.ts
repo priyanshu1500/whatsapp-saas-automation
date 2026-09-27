@@ -5,8 +5,9 @@ import { aiAgent } from '@/server/ai-agent';
 
 const chatSchema = z.object({
   phone: z.string().min(5, 'Invalid phone number'),
-  name: z.string().default('Simulator Patient'),
+  name: z.string().default('Simulator Buyer'),
   message: z.string().min(1, 'Message cannot be empty'),
+  forceUnpause: z.boolean().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -17,11 +18,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: parsed.error.format() }, { status: 400 });
     }
 
-    const { phone, name, message } = parsed.data;
+    const { phone, name, message, forceUnpause } = parsed.data;
     const config = db.getConfig();
 
     // 1. Get or create Lead
-    const lead = db.createOrGetLead(phone, name);
+    let lead = db.createOrGetLead(phone, name);
+
+    // If forceUnpause was requested, unpause immediately
+    if (forceUnpause && lead.bot_paused) {
+      lead = db.updateLead(lead.id, {
+        bot_paused: false,
+        status: lead.status === 'NEEDS_STAFF' ? 'CONTACTED' : lead.status,
+      }) || lead;
+    }
 
     // 2. Save incoming user message
     const userMsg = db.addMessage({
@@ -39,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         bot_paused: true,
-        reply: '(AI Bot is currently PAUSED by clinic staff. Human receptionist will respond in live inbox)',
+        reply: '(AI Concierge is currently PAUSED for Director Takeover. Managing Director Raghav Singhal is active in VIP Client Inbox. Click "Resume AI Concierge" to re-enable automated responses.)',
         intent: 'human',
         lead: db.getLeadById(lead.id),
       });

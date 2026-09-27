@@ -17,10 +17,12 @@ import {
   Sparkles,
   Compass,
   Key,
+  BookOpen,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Director Overview', href: '/', icon: LayoutDashboard },
+  { label: 'How to Use & Demo Guide', href: '/how-to-use', icon: BookOpen, badge: 'Guide' },
   { label: 'WhatsApp Simulator', href: '/simulator', icon: Smartphone, badge: 'Sandbox' },
   { label: 'VIP Client Inbox', href: '/conversations', icon: MessageSquare, badgeCountKey: 'conversations' },
   { label: 'Property Portfolio', href: '/properties', icon: Building2 },

@@ -83,13 +83,20 @@ export default function RealEstateDashboardPage() {
           </p>
         </div>
 
-        <div className="relative z-10 flex items-center gap-3">
+        <div className="relative z-10 flex flex-wrap items-center gap-3">
+          <Link
+            href="/how-to-use"
+            className="flex items-center gap-2 bg-[#182032] hover:bg-[#1E293B] text-[#D4AF37] border border-[#D4AF37]/30 font-bold px-4 py-2.5 rounded-xl transition text-xs shadow-md"
+          >
+            <Compass className="w-3.5 h-3.5" />
+            How to Use & Demo Guide
+          </Link>
           <Link
             href="/simulator"
             className="flex items-center gap-2 bg-[#D4AF37] hover:bg-[#C5A880] text-[#090D16] font-bold px-4 py-2.5 rounded-xl transition shadow-lg shadow-[#D4AF37]/20 text-xs"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            Launch Real Estate Simulator
+            Launch Simulator
           </Link>
           <button
             onClick={triggerReminderCron}

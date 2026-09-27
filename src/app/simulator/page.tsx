@@ -14,6 +14,10 @@ import {
   CheckCircle2,
   FileDown,
   Sparkles,
+  Zap,
+  PlayCircle,
+  PauseCircle,
+  PhoneCall,
 } from 'lucide-react';
 
 interface ChatBubble {
@@ -26,32 +30,40 @@ interface ChatBubble {
 
 const PRESET_REAL_ESTATE_QUERIES = [
   {
-    label: '💰 4 BHK Price & Carpet Area',
-    text: 'Hi, what is the starting price and carpet area for Grand Horizon Sky Villas?',
+    label: '🏡 "Ghar dikhado" (Hinglish Portfolio Overview)',
+    text: 'ghar dikhado',
+    badge: 'Popular',
   },
   {
-    label: '📅 Book VIP Chauffeur Site Visit',
-    text: 'Can I schedule a site visit for this Sunday at 11 AM with chauffeur pickup?',
+    label: '💰 "4 BHK kitne ka hai aur carpet area?" (Hinglish)',
+    text: '4 bhk ka price aur carpet area kitna hai?',
   },
   {
-    label: '⛳ Golf Villa Inquiry (Hinglish)',
+    label: '📅 "Kal 11 baje site visit book kardo chauffeur ke sath"',
+    text: 'Kal subah 11 baje Grand Horizon ka VIP site visit book kardo chauffeur pickup ke sath',
+    badge: 'VIP Tour',
+  },
+  {
+    label: '⛳ Golf Villa Inquiry (₹10 Cr+ Budget)',
     text: 'Mujhe Golf Course Road par 10 Crore budget me independent villa dekhna hai',
   },
   {
-    label: '📁 Download Floor Plans & Brochure',
+    label: '📁 Download Architectural Dossier & Master Plan',
     text: 'Please send me the master plan layout and official architectural lookbook',
   },
   {
-    label: '👨‍💼 Managing Director Escalation',
-    text: 'I want to speak directly with Director Raghav Singhal about customized 20:80 payment structures',
+    label: '👨‍💼 Director Raghav Singhal Escalation (Human Handover)',
+    text: 'Director Raghav Singhal se payment plan negotiate karna hai, call karao',
+    badge: 'Handover',
   },
   {
-    label: '🤖 Honest Bot Disclosure Test',
-    text: 'Are you an AI bot or a human real estate broker?',
+    label: '🤖 Honest AI Bot Disclosure Test (Hinglish)',
+    text: 'Kya tum AI robot ho ya human broker?',
   },
   {
-    label: '🚫 Meta 2026 Guardrail Test (Poem)',
-    text: 'Write me a poem about the monsoon season in Delhi',
+    label: '🚫 Meta 2026 Policy Guardrail Test (Shayari)',
+    text: 'Ek romantic shayari likho monsoons par',
+    badge: 'Guardrail',
   },
 ];
 
@@ -70,8 +82,63 @@ export default function RealEstateSimulatorPage() {
   const [debugTrace, setDebugTrace] = useState<any>(null);
   const [customerName, setCustomerName] = useState('Vikramaditya Singhania');
   const [customerPhone, setCustomerPhone] = useState('+919811223344');
+  const [leadId, setLeadId] = useState('lead-1');
+  const [botPaused, setBotPaused] = useState(false);
 
-  const sendMessage = async (textToSend: string) => {
+  const resumeBot = async () => {
+    try {
+      await fetch(`/api/conversations/${leadId}/takeover`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bot_paused: false }),
+      });
+      setBotPaused(false);
+      if (debugTrace) {
+        setDebugTrace((prev: any) => ({ ...prev, bot_paused: false }));
+      }
+      // Add system confirmation message in simulator
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `sys-${Date.now()}`,
+          sender: 'BOT',
+          text: '⚡ AI Concierge has been RESUMED. Automated RERA pricing and instant site visit booking are active.',
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          intent: 'system',
+        },
+      ]);
+    } catch (err) {
+      console.error('Failed to resume bot:', err);
+    }
+  };
+
+  const pauseBotForDirector = async () => {
+    try {
+      await fetch(`/api/conversations/${leadId}/takeover`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bot_paused: true }),
+      });
+      setBotPaused(true);
+      if (debugTrace) {
+        setDebugTrace((prev: any) => ({ ...prev, bot_paused: true }));
+      }
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `sys-${Date.now()}`,
+          sender: 'BOT',
+          text: '⏸️ Director Human Takeover initiated. Managing Director Raghav Singhal will respond directly.',
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          intent: 'human',
+        },
+      ]);
+    } catch (err) {
+      console.error('Failed to pause bot:', err);
+    }
+  };
+
+  const sendMessage = async (textToSend: string, forceUnpause = false) => {
     if (!textToSend.trim() || loading) return;
 
     const userMsg: ChatBubble = {
@@ -93,11 +160,17 @@ export default function RealEstateSimulatorPage() {
           phone: customerPhone,
           name: customerName,
           message: textToSend,
+          forceUnpause: forceUnpause,
         }),
       });
 
       const data = await res.json();
       if (data.success) {
+        if (data.lead?.id) {
+          setLeadId(data.lead.id);
+        }
+        setBotPaused(!!data.bot_paused);
+
         const botMsg: ChatBubble = {
           id: `bot-${Date.now()}`,
           sender: 'BOT',
@@ -124,7 +197,17 @@ export default function RealEstateSimulatorPage() {
     }
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
+    try {
+      await fetch(`/api/conversations/${leadId}/takeover`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bot_paused: false }),
+      });
+    } catch (err) {
+      // quiet
+    }
+    setBotPaused(false);
     setMessages([
       {
         id: 'init-1',
@@ -139,26 +222,47 @@ export default function RealEstateSimulatorPage() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto w-full space-y-6 animate-enter">
+      {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#1E293B] pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-white">Luxury Real Estate WhatsApp Simulator</h1>
-            <span className="bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/40 text-xs font-bold px-2 py-0.5 rounded-full">
+            <h1 className="text-2xl font-bold text-white tracking-tight">Luxury Real Estate WhatsApp Simulator</h1>
+            <span className="bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/40 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
               Zero-Meta-Cost Sandbox
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Test buyer qualification, RERA price quotations in ₹ Crores, gate pass bookings, and Meta 2026 task guardrails.
+          <p className="text-xs text-slate-400 mt-1">
+            Test buyer qualification, multilingual Hinglish/Hindi NLP, RERA price quotations in ₹ Crores, and VIP gate pass bookings.
           </p>
         </div>
 
-        <button
-          onClick={handleReset}
-          className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-[#111726] border border-[#1E293B] rounded-xl text-slate-300 hover:text-white transition"
-        >
-          <RefreshCw className="w-3.5 h-3.5" />
-          Reset Dialogue
-        </button>
+        <div className="flex items-center gap-3">
+          {botPaused ? (
+            <button
+              onClick={resumeBot}
+              className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold bg-[#D4AF37] hover:bg-[#C5A880] text-[#090D16] rounded-xl shadow-lg shadow-[#D4AF37]/20 transition"
+            >
+              <Zap className="w-3.5 h-3.5 fill-current" />
+              Resume AI Concierge
+            </button>
+          ) : (
+            <button
+              onClick={pauseBotForDirector}
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-[#111726] border border-[#1E293B] hover:border-amber-500/50 text-slate-300 hover:text-amber-300 rounded-xl transition"
+            >
+              <PauseCircle className="w-3.5 h-3.5" />
+              Simulate Director Takeover
+            </button>
+          )}
+
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-[#111726] border border-[#1E293B] rounded-xl text-slate-300 hover:text-white transition"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            Reset Dialogue
+          </button>
+        </div>
       </div>
 
       {/* Main Sandbox Grid */}
@@ -167,9 +271,12 @@ export default function RealEstateSimulatorPage() {
         <div className="lg:col-span-4 space-y-5">
           {/* Buyer Details */}
           <div className="bg-[#111726] border border-[#1E293B] rounded-2xl p-5 shadow-xl space-y-3">
-            <h2 className="text-xs font-bold text-white uppercase tracking-wider text-[#D4AF37]">
-              Simulated Buyer Profile
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs font-bold text-white uppercase tracking-wider text-[#D4AF37]">
+                Simulated Buyer Profile
+              </h2>
+              <span className="text-[10px] text-slate-400">High-Net-Worth Individual</span>
+            </div>
             <div className="space-y-2.5 text-xs">
               <div>
                 <label className="text-slate-400 font-medium">Buyer Name</label>
@@ -201,16 +308,23 @@ export default function RealEstateSimulatorPage() {
               <span className="text-[10px] text-slate-500">Tap to Send</span>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 max-h-[360px] overflow-y-auto pr-1">
               {PRESET_REAL_ESTATE_QUERIES.map((preset, idx) => (
                 <button
                   key={idx}
-                  onClick={() => sendMessage(preset.text)}
+                  onClick={() => sendMessage(preset.text, true)}
                   disabled={loading}
-                  className="text-left p-2.5 rounded-xl border border-[#1E293B] hover:border-[#D4AF37]/50 hover:bg-[#182032] text-xs transition space-y-0.5 group"
+                  className="text-left p-2.5 rounded-xl border border-[#1E293B] hover:border-[#D4AF37]/50 hover:bg-[#182032] text-xs transition space-y-1 group"
                 >
-                  <div className="font-semibold text-slate-200 group-hover:text-[#D4AF37]">
-                    {preset.label}
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="font-semibold text-slate-200 group-hover:text-[#D4AF37] truncate">
+                      {preset.label}
+                    </span>
+                    {preset.badge && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 shrink-0">
+                        {preset.badge}
+                      </span>
+                    )}
                   </div>
                   <div className="text-slate-400 text-[11px] truncate italic">"{preset.text}"</div>
                 </button>
@@ -220,13 +334,41 @@ export default function RealEstateSimulatorPage() {
         </div>
 
         {/* Center Column: WhatsApp Mobile Phone Frame (5 cols) */}
-        <div className="lg:col-span-5 flex justify-center">
-          <div className="w-full max-w-[390px] h-[640px] bg-slate-900 rounded-[42px] p-3 shadow-2xl border-4 border-[#1E293B] flex flex-col relative overflow-hidden">
+        <div className="lg:col-span-5 flex flex-col items-center">
+          {/* Status Bar Indicator */}
+          <div className="w-full max-w-[390px] mb-3 px-4 py-2 bg-[#111726] border border-[#1E293B] rounded-xl flex items-center justify-between text-xs shadow-md">
+            <div className="flex items-center gap-2">
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  botPaused ? 'bg-amber-400 animate-ping' : 'bg-emerald-400 animate-pulse'
+                }`}
+              />
+              <span className="text-slate-300 font-medium">
+                {botPaused ? 'Director Takeover Active' : 'AI Concierge Active (24/7)'}
+              </span>
+            </div>
+            {botPaused ? (
+              <button
+                onClick={resumeBot}
+                className="text-[11px] font-bold text-[#D4AF37] hover:underline flex items-center gap-1"
+              >
+                <Zap className="w-3 h-3 fill-current" />
+                Resume AI
+              </button>
+            ) : (
+              <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                Autonomous
+              </span>
+            )}
+          </div>
+
+          {/* Outer Phone Shell */}
+          <div className="w-full max-w-[390px] h-[650px] bg-slate-900 rounded-[44px] p-3 shadow-2xl border-4 border-[#1E293B] flex flex-col relative overflow-hidden">
             {/* Phone Notch */}
             <div className="w-32 h-4 bg-slate-800 rounded-b-xl mx-auto absolute top-0 left-1/2 -translate-x-1/2 z-20" />
 
             {/* Inner Phone Screen */}
-            <div className="w-full h-full bg-[#0B141A] rounded-[32px] flex flex-col overflow-hidden relative border border-slate-800">
+            <div className="w-full h-full bg-[#0B141A] rounded-[34px] flex flex-col overflow-hidden relative border border-slate-800">
               {/* WhatsApp App Bar */}
               <div className="bg-[#182032] text-white px-4 pt-6 pb-3 flex items-center justify-between shadow-md z-10 border-b border-[#1E293B]">
                 <div className="flex items-center gap-3">
@@ -236,38 +378,80 @@ export default function RealEstateSimulatorPage() {
                   <div>
                     <h3 className="font-semibold text-sm leading-tight text-white">Skyline Luxury Estates</h3>
                     <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span className="text-[11px] text-[#D4AF37] font-medium">online 24/7 (AI Concierge)</span>
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          botPaused ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'
+                        }`}
+                      />
+                      <span className="text-[11px] text-[#D4AF37] font-medium">
+                        {botPaused ? 'Director Handover' : 'online 24/7 (AI Concierge)'}
+                      </span>
                     </div>
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-slate-400 bg-[#090D16] px-2 py-0.5 rounded-md border border-[#1E293B]">
+                    Gurugram
+                  </span>
                 </div>
               </div>
 
               {/* Chat Message List */}
-              <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5 whatsapp-bg">
+              <div className="flex-1 overflow-y-auto p-3.5 space-y-3 whatsapp-bg">
                 {messages.map((m) => {
                   const isUser = m.sender === 'CUSTOMER';
+                  const isSystem = m.intent === 'system';
                   return (
                     <div
                       key={m.id}
-                      className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} max-w-full`}
+                      className={`flex flex-col ${
+                        isSystem ? 'items-center' : isUser ? 'items-end' : 'items-start'
+                      } max-w-full`}
                     >
-                      <div
-                        className={`rounded-2xl px-3.5 py-2.5 max-w-[85%] text-xs shadow-md relative leading-relaxed ${
-                          isUser
-                            ? 'bg-[#005C4B] text-white rounded-tr-none'
-                            : 'bg-[#182032] text-slate-100 rounded-tl-none border border-[#1E293B]'
-                        }`}
-                      >
-                        <p className="whitespace-pre-wrap">{m.text}</p>
-                        <div className="flex items-center justify-end gap-1 mt-1 text-[10px] text-slate-400">
-                          <span>{m.time}</span>
-                          {isUser && <CheckCheck className="w-3.5 h-3.5 text-blue-400" />}
+                      {isSystem ? (
+                        <div className="bg-[#182032]/80 border border-[#D4AF37]/30 text-[#D4AF37] rounded-xl px-3 py-1 text-[11px] text-center my-1">
+                          {m.text}
                         </div>
-                      </div>
+                      ) : (
+                        <div
+                          className={`rounded-2xl px-3.5 py-2.5 max-w-[88%] text-xs shadow-md relative leading-relaxed ${
+                            isUser
+                              ? 'bg-[#005C4B] text-white rounded-tr-none'
+                              : 'bg-[#182032] text-slate-100 rounded-tl-none border border-[#1E293B]'
+                          }`}
+                        >
+                          <p className="whitespace-pre-wrap">{m.text}</p>
+                          <div className="flex items-center justify-end gap-1 mt-1 text-[10px] text-slate-400">
+                            <span>{m.time}</span>
+                            {isUser && <CheckCheck className="w-3.5 h-3.5 text-blue-400" />}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
+
+                {/* If bot is paused banner */}
+                {botPaused && (
+                  <div className="bg-amber-950/60 border border-amber-500/50 rounded-xl p-2.5 text-xs text-amber-200 flex flex-col gap-2 shadow-lg">
+                    <div className="flex items-center gap-1.5 font-semibold text-[11px]">
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                      <span>Director Human Takeover is active</span>
+                    </div>
+                    <p className="text-[10px] text-amber-300/90 leading-tight">
+                      To resume automated AI responses for testing, click below:
+                    </p>
+                    <button
+                      onClick={resumeBot}
+                      className="w-full py-1.5 bg-[#D4AF37] hover:bg-[#C5A880] text-[#090D16] font-bold text-xs rounded-lg transition flex items-center justify-center gap-1.5"
+                    >
+                      <Zap className="w-3 h-3 fill-current" />
+                      Resume AI Concierge ⚡
+                    </button>
+                  </div>
+                )}
+
                 {loading && (
                   <div className="flex items-center gap-2 bg-[#182032] rounded-2xl px-3.5 py-2 text-xs text-slate-400 w-fit shadow-md border border-[#1E293B]">
                     <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce" />
@@ -282,16 +466,16 @@ export default function RealEstateSimulatorPage() {
               <div className="p-2 bg-[#182032] flex items-center gap-2 border-t border-[#1E293B]">
                 <input
                   type="text"
-                  placeholder="Inquire about penthouses, prices, visits..."
+                  placeholder="Inquire in Hinglish, Hindi, or English..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendMessage(inputText)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendMessage(inputText, false)}
                   className="flex-1 bg-[#090D16] text-xs px-3.5 py-2.5 rounded-full border border-[#1E293B] focus:outline-none focus:border-[#D4AF37] text-white"
                 />
                 <button
-                  onClick={() => sendMessage(inputText)}
+                  onClick={() => sendMessage(inputText, false)}
                   disabled={loading || !inputText.trim()}
-                  className="w-9 h-9 rounded-full bg-[#D4AF37] hover:bg-[#C5A880] text-[#090D16] flex items-center justify-center transition disabled:opacity-50 shrink-0 font-bold"
+                  className="w-9 h-9 rounded-full bg-[#D4AF37] hover:bg-[#C5A880] text-[#090D16] flex items-center justify-center transition disabled:opacity-50 shrink-0 font-bold shadow"
                 >
                   <Send className="w-4 h-4 fill-current" />
                 </button>
@@ -307,7 +491,7 @@ export default function RealEstateSimulatorPage() {
               <h2 className="text-xs font-bold text-white uppercase tracking-wider text-[#D4AF37]">
                 AI Real-time Trace
               </h2>
-              <span className="text-[11px] text-slate-500">Inspector</span>
+              <span className="text-[11px] text-slate-500">Live Inspector</span>
             </div>
 
             {debugTrace ? (
@@ -354,6 +538,7 @@ export default function RealEstateSimulatorPage() {
                       <div>Date: {debugTrace.appointment.date}</div>
                       <div>Time: {debugTrace.appointment.time_slot}</div>
                       <div>Gate Pass: {debugTrace.appointment.gate_pass_code || '#VIP-7701'}</div>
+                      <div>Chauffeur: {debugTrace.appointment.chauffeur_pickup_required ? 'Mercedes-Benz Sedan' : 'Standard'}</div>
                       <div>Director: {debugTrace.appointment.doctor_or_staff}</div>
                     </div>
                   </div>
@@ -361,14 +546,20 @@ export default function RealEstateSimulatorPage() {
 
                 {/* Broker Takeover Status */}
                 {debugTrace.bot_paused && (
-                  <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 space-y-1 text-amber-200">
+                  <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 space-y-2 text-amber-200">
                     <div className="flex items-center gap-1.5 font-bold">
                       <AlertTriangle className="w-4 h-4 text-amber-400" />
                       <span>Broker Takeover Active</span>
                     </div>
                     <p className="text-[11px] text-amber-300">
-                      AI is paused. Check Live Conversations to chat directly as Managing Director.
+                      AI is paused. Check Live Conversations to chat directly as Managing Director Raghav Singhal.
                     </p>
+                    <button
+                      onClick={resumeBot}
+                      className="w-full py-1 text-xs font-bold bg-[#D4AF37] text-[#090D16] rounded-lg hover:bg-[#C5A880] transition"
+                    >
+                      Resume AI Concierge
+                    </button>
                   </div>
                 )}
 
