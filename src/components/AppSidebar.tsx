@@ -18,10 +18,13 @@ import {
   Compass,
   Key,
   BookOpen,
+  LogOut,
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 const NAV_ITEMS = [
   { label: 'Director Overview', href: '/', icon: LayoutDashboard },
+  { label: 'Switch Demo ID / Login', href: '/login', icon: Key, badge: 'Demo' },
   { label: 'How to Use & Demo Guide', href: '/how-to-use', icon: BookOpen, badge: 'Guide' },
   { label: 'WhatsApp Simulator', href: '/simulator', icon: Smartphone, badge: 'Sandbox' },
   { label: 'VIP Client Inbox', href: '/conversations', icon: MessageSquare, badgeCountKey: 'conversations' },
@@ -35,6 +38,7 @@ const NAV_ITEMS = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
   const [unreadCount, setUnreadCount] = useState(1);
 
   useEffect(() => {
@@ -125,15 +129,55 @@ export function AppSidebar() {
         })}
       </nav>
 
-      {/* Footer Info */}
-      <div className="p-3 border-t border-[#1E293B]">
-        <div className="bg-[#111726] rounded-xl p-3 border border-[#1E293B]">
-          <div className="flex items-center space-x-2 text-[#D4AF37] mb-1">
-            <ShieldCheck className="w-4 h-4" />
-            <span className="text-xs font-semibold">RERA-Registered Agent</span>
+      {/* Authenticated User & Footer Info */}
+      <div className="p-3 border-t border-[#1E293B] space-y-2">
+        {user ? (
+          <div className="bg-[#111726] rounded-xl p-2.5 border border-[#1E293B] flex items-center justify-between">
+            <div className="flex items-center space-x-2.5 overflow-hidden">
+              <div
+                className={`w-8 h-8 rounded-lg bg-gradient-to-br ${
+                  user.avatarColor || 'from-amber-400 to-amber-600'
+                } text-slate-950 flex items-center justify-center font-bold text-xs shrink-0 ring-1 ring-white/10`}
+              >
+                {user.avatar || 'RO'}
+              </div>
+              <div className="overflow-hidden">
+                <div className="flex items-center space-x-1.5">
+                  <p className="text-xs font-semibold text-white truncate">{user.name}</p>
+                </div>
+                <p className="text-[10px] text-amber-300/80 truncate font-mono">{user.badgeId} • {user.role}</p>
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              title="Sign Out / Switch ID"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors shrink-0"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
-          <p className="text-[11px] text-slate-400 leading-tight">
-            High-Ticket WhatsApp Sales • 24/7 Chauffeur Tour Bookings
+        ) : (
+          <Link
+            href="/login"
+            className="flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 text-xs font-semibold transition-colors"
+          >
+            <span className="flex items-center gap-1.5">
+              <Key className="w-3.5 h-3.5" />
+              <span>Select Demo ID</span>
+            </span>
+            <span className="text-[10px] uppercase font-mono bg-amber-400/20 px-1.5 py-0.5 rounded">
+              Sign In →
+            </span>
+          </Link>
+        )}
+
+        <div className="bg-[#0D121F] rounded-xl p-2.5 border border-[#1E293B]">
+          <div className="flex items-center space-x-1.5 text-amber-400 mb-0.5">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-semibold">HARERA Registered OS</span>
+          </div>
+          <p className="text-[10px] text-slate-400 leading-tight">
+            Encrypted Meta Cloud API • 24/7 VIP Chauffeur Pass
           </p>
         </div>
       </div>
