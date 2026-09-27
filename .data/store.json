@@ -247,16 +247,16 @@
       "name": "Vikramaditya Singhania",
       "status": "SITE_VISIT_BOOKED",
       "bot_paused": false,
-      "service_interest": "The Grand Horizon Penthouse & Sky Villas",
+      "service_interest": "Skyline Lumina 3 & 4 BHK Luxury Residences",
       "budget_bracket": "₹8.5 Cr – ₹14.0 Cr",
       "preferred_date": "2026-09-28 at Kal (Tomorrow)",
       "buyer_type": "End-User",
       "lead_tier": "ULTRA_HNI",
       "notes": "Customer requested Managing Director handover in WhatsApp Simulator.",
-      "unread_count": 2,
-      "last_message_at": "2026-09-27T19:41:59.874Z",
+      "unread_count": 8,
+      "last_message_at": "2026-09-27T19:54:23.549Z",
       "created_at": "2026-09-25T16:20:55.425Z",
-      "updated_at": "2026-09-27T19:41:59.885Z"
+      "updated_at": "2026-09-27T19:54:23.576Z"
     },
     {
       "id": "lead-2",
@@ -750,6 +750,144 @@
       "cost_inr": 0,
       "id": "msg-1790538119874-225",
       "timestamp": "2026-09-27T19:41:59.874Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "ghar dikhado",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538406022-272",
+      "timestamp": "2026-09-27T19:46:46.022Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Namaste! Skyline Luxury Estates me hamare paas Gurugram ki sabse prestigious locations par ultra-luxury residences available hain:\n\n🏙️ **The Grand Horizon Sky Villas** (Golf Course Extn Rd, Sec 65)\n• 4 & 5 BHK Duplex | 4,250 sq.ft | ₹8.50 Cr – ₹14.0 Cr\n• Private elevator, golf course view deck & private rooftop pool\n\n🌳 **The Crestview Signature Golf Villas** (Aravallis, Sec 63)\n• 5 BHK Independent Villas | 5,800 sq.ft | ₹11.50 Cr – ₹18.0 Cr\n• 400 sq.yd personal lawn, basement cinema & heated lap pool\n\n✨ **Skyline Lumina Residences** (Sector 54, Golf Course Rd)\n• 3 & 4 BHK Luxury Condos | 2,250 sq.ft | ₹3.40 Cr – ₹5.80 Cr\n• 82% open landscaped greens & EV fast-charging lounge\n\n🏢 **Skyline One Commercial Suites** (CyberCity Phase 2)\n• Grade-A Office Suites | ₹2.10 Cr – ₹6.50 Cr (8.2% Rental Yield)\n\nAapko kis type ki property dekhni hai? Main floor plan bhej du ya kal private chauffeur site visit arrange karwa du?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538406024-466",
+      "timestamp": "2026-09-27T19:46:46.024Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "familt of 4 ke lie best kyarahgea ",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538432536-356",
+      "timestamp": "2026-09-27T19:47:12.536Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Namaste! Skyline Luxury Estates Gurugram me aapka swagat hai. Main aapka autonomous luxury property consultant hoon. Main aapko verified RERA pricing (₹ Crores me), confidential floor plans, ya private chauffeur site visit schedule karwa sakta hoon. Aaj aapki property search me main kaise madad kar sakta hoon?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538432541-582",
+      "timestamp": "2026-09-27T19:47:12.541Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "family of 4 ke lie best options kya hai ??",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538452691-723",
+      "timestamp": "2026-09-27T19:47:32.691Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Namaste! Skyline Luxury Estates me hamare paas Gurugram ki sabse prestigious locations par ultra-luxury residences available hain:\n\n🏙️ **The Grand Horizon Sky Villas** (Golf Course Extn Rd, Sec 65)\n• 4 & 5 BHK Duplex | 4,250 sq.ft | ₹8.50 Cr – ₹14.0 Cr\n• Private elevator, golf course view deck & private rooftop pool\n\n🌳 **The Crestview Signature Golf Villas** (Aravallis, Sec 63)\n• 5 BHK Independent Villas | 5,800 sq.ft | ₹11.50 Cr – ₹18.0 Cr\n• 400 sq.yd personal lawn, basement cinema & heated lap pool\n\n✨ **Skyline Lumina Residences** (Sector 54, Golf Course Rd)\n• 3 & 4 BHK Luxury Condos | 2,250 sq.ft | ₹3.40 Cr – ₹5.80 Cr\n• 82% open landscaped greens & EV fast-charging lounge\n\n🏢 **Skyline One Commercial Suites** (CyberCity Phase 2)\n• Grade-A Office Suites | ₹2.10 Cr – ₹6.50 Cr (8.2% Rental Yield)\n\nAapko kis type ki property dekhni hai? Main floor plan bhej du ya kal private chauffeur site visit arrange karwa du?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538452693-345",
+      "timestamp": "2026-09-27T19:47:32.693Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "familt of 4 ke lie best kyarahgea",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538854377-101",
+      "timestamp": "2026-09-27T19:54:14.377Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Aapki **family of 4** ke liye hamare paas 2 best-suited luxury residences hain based on lifestyle & space:\n\n🌟 **Top Choice: Skyline Lumina 3 & 4 BHK (Sector 54, Golf Course Rd)**\n• **Why it's ideal for a family of 4:** 2,250 sq.ft carpet area me expansive master bedroom, 2 dedicated kids/guest bedrooms, aur private family lounge.\n• **Family & Kids Highlights:** 82% open landscaped greens, Olympic heated swimming pool, dedicated children's activity zones, Six Senses clubhouse, aur top schools (The Shri Ram School & Heritage) sirf 10 minute door.\n• **Pricing:** ₹3.40 Cr – ₹5.80 Cr (Ready to Move | HARERA: RC/REP/HARERA/GGM/2024/112).\n\n🏙️ **Ultra-Luxury Duplex: The Grand Horizon 4 BHK Sky Villa (Sector 65)**\n• **Duplex Luxury:** 4,250 sq.ft duplex penthouse with private high-speed elevator jo direct aapke foyer me khulta hai, private rooftop pool, aur panoramic golf views.\n• **Pricing:** Starts at ₹8.50 Cr (Ready to Move).\n\nAapka preferred budget bracket kya rahega (₹3.5–6 Cr ya ₹8 Cr+)? Main aapki family ke liye is weekend accompanied sample flat tour book karwa du?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538854380-180",
+      "timestamp": "2026-09-27T19:54:14.380Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "family of 4 ke lie best options kya hai ??",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538859195-581",
+      "timestamp": "2026-09-27T19:54:19.195Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Aapki **family of 4** ke liye hamare paas 2 best-suited luxury residences hain based on lifestyle & space:\n\n🌟 **Top Choice: Skyline Lumina 3 & 4 BHK (Sector 54, Golf Course Rd)**\n• **Why it's ideal for a family of 4:** 2,250 sq.ft carpet area me expansive master bedroom, 2 dedicated kids/guest bedrooms, aur private family lounge.\n• **Family & Kids Highlights:** 82% open landscaped greens, Olympic heated swimming pool, dedicated children's activity zones, Six Senses clubhouse, aur top schools (The Shri Ram School & Heritage) sirf 10 minute door.\n• **Pricing:** ₹3.40 Cr – ₹5.80 Cr (Ready to Move | HARERA: RC/REP/HARERA/GGM/2024/112).\n\n🏙️ **Ultra-Luxury Duplex: The Grand Horizon 4 BHK Sky Villa (Sector 65)**\n• **Duplex Luxury:** 4,250 sq.ft duplex penthouse with private high-speed elevator jo direct aapke foyer me khulta hai, private rooftop pool, aur panoramic golf views.\n• **Pricing:** Starts at ₹8.50 Cr (Ready to Move).\n\nAapka preferred budget bracket kya rahega (₹3.5–6 Cr ya ₹8 Cr+)? Main aapki family ke liye is weekend accompanied sample flat tour book karwa du?",
+      "intent": "question",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538859197-864",
+      "timestamp": "2026-09-27T19:54:19.197Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "INBOUND",
+      "sender": "CUSTOMER",
+      "body": "haan Lumina ka site visit karwa do kal 11 baje",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538863539-417",
+      "timestamp": "2026-09-27T19:54:23.539Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "phone": "+919811223344",
+      "direction": "OUTBOUND",
+      "sender": "BOT",
+      "body": "Shandar! Skyline Lumina 3 & 4 BHK Luxury Residences ke liye aapka VIP Private Site Visit confirm kar diya gaya hai (Kal (Tomorrow)).\n\n📍 Location: Horizon Experience Lounge, Two Horizon Centre, Golf Course Rd, Gurugram\n🎟️ VIP Gate Pass Code: #VIP-7171\n👨‍💼 Host: Raghav Singhal (Managing Director)\n🚗 Chauffeur Service: Private Mercedes-Benz pickup available\n\nKya aapko aapke residence se complimentary chauffeur pickup car arrange karwani hai?",
+      "intent": "book",
+      "cost_category": "service_reply",
+      "cost_inr": 0,
+      "id": "msg-1790538863549-179",
+      "timestamp": "2026-09-27T19:54:23.549Z"
     }
   ],
   "appointments": [
@@ -811,6 +949,21 @@
       "gate_pass_code": "SKY-VIP-4317",
       "id": "apt-1790538119884-888",
       "created_at": "2026-09-27T19:41:59.884Z"
+    },
+    {
+      "lead_id": "lead-1",
+      "patient_name": "Vikramaditya Singhania",
+      "phone": "+919811223344",
+      "service": "Skyline Lumina 3 & 4 BHK Luxury Residences",
+      "date": "2026-09-28",
+      "time_slot": "Kal (Tomorrow)",
+      "doctor_or_staff": "Raghav Singhal (Managing Director, Luxury Sales)",
+      "status": "CONFIRMED",
+      "reminder_sent": false,
+      "chauffeur_pickup_required": false,
+      "gate_pass_code": "SKY-VIP-6736",
+      "id": "apt-1790538863560-149",
+      "created_at": "2026-09-27T19:54:23.560Z"
     }
   ],
   "templates": [

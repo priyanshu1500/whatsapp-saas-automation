@@ -37,7 +37,22 @@ export class WhatsAppRealEstateAgent {
     config: BusinessConfig
   ): AIResponsePayload {
     const raw = text.trim();
-    const lower = raw.toLowerCase();
+    // Normalize typos and common Hinglish phrasing
+    let normalized = raw.toLowerCase()
+      .replace(/\bfamilt\b/g, 'family')
+      .replace(/\bfamly\b/g, 'family')
+      .replace(/\bfamiliy\b/g, 'family')
+      .replace(/\bkyarahgea\b/g, 'kya rahega')
+      .replace(/\bkyarahega\b/g, 'kya rahega')
+      .replace(/\bkyahoga\b/g, 'kya hoga')
+      .replace(/\blie\b/g, 'liye')
+      .replace(/\boptins\b/g, 'options')
+      .replace(/\boptons\b/g, 'options')
+      .replace(/\bbudgt\b/g, 'budget')
+      .replace(/\bchiye\b|\bchaie\b/g, 'chahiye')
+      .replace(/\brecomnd\b|\brecomend\b|\brecomended\b|\bsugest\b/g, 'recommend');
+
+    const lower = normalized;
     const properties = config.properties || [];
 
     // Language Detection: Detect Hinglish / Hindi
@@ -49,6 +64,7 @@ export class WhatsAppRealEstateAgent {
       'hai', 'hain', 'chahiye', 'chalega', 'bhejo', 'bhej do', 'bhejiye', 'aana',
       'gaadi', 'baje', 'kal', 'sham', 'subah', 'par', 'me', 'se', 'kripya',
       'namaste', 'shukriya', 'kothi', 'naksha', 'rate', 'daam', 'paisa',
+      'rahega', 'liye', 'bache', 'bacche', 'parivar',
     ];
     const isHinglish =
       !isHindiScript && hinglishTokens.some((tok) => lower.split(/\s+/).includes(tok) || lower.includes(tok));
@@ -171,6 +187,248 @@ export class WhatsAppRealEstateAgent {
       matchedProp = properties.find((p) => p.slug.includes('crestview')) || properties[2];
     } else if (lower.includes('commercial') || lower.includes('office') || lower.includes('retail') || lower.includes('rental yield') || lower.includes('cyber')) {
       matchedProp = properties.find((p) => p.slug.includes('commercial')) || properties[3];
+    }
+
+    // =========================================================================
+    // 5. CONSULTATIVE RECOMMENDATION & ADVISORY ENGINE
+    // Tailored guidance based on family size, lifestyle, budget, & investment
+    // =========================================================================
+    const isRecommendationQuery =
+      lower.includes('best') ||
+      lower.includes('recommend') ||
+      lower.includes('suggest') ||
+      lower.includes('sahi rahega') ||
+      lower.includes('kaunsa lu') ||
+      lower.includes('kaunsa sahi') ||
+      lower.includes('kaunsa better') ||
+      lower.includes('kya lu') ||
+      lower.includes('suitable') ||
+      lower.includes('perfect') ||
+      lower.includes('ideal') ||
+      lower.includes('advis') ||
+      lower.includes('batao') ||
+      lower.includes('options');
+
+    const isFamilyQuery =
+      lower.includes('family') ||
+      lower.includes('parivar') ||
+      lower.includes('member') ||
+      lower.includes('bachhe') ||
+      lower.includes('kids') ||
+      lower.includes('parents') ||
+      lower.includes('couple');
+
+    // Scenario A: Family of 4 (or 3-4 members / kids)
+    const isFamilyOf4 =
+      (isFamilyQuery && (lower.includes('4') || lower.includes('four') || lower.includes('char') || lower.includes('chaar') || lower.includes('3') || lower.includes('three') || lower.includes('teen') || lower.includes('kid') || lower.includes('bachh'))) ||
+      lower.includes('family of 4') ||
+      lower.includes('family of 3') ||
+      lower.includes('4 logo') ||
+      lower.includes('4 members') ||
+      lower.includes('4 log');
+
+    if (isFamilyOf4) {
+      if (isHindiScript) {
+        return {
+          reply: `4 सदस्यों के परिवार (Family of 4) के लिए हमारे पास 2 सबसे उपयुक्त विकल्प हैं:
+
+🌟 **सर्वश्रेष्ठ विकल्प: Skyline Lumina 3 व 4 BHK (सेक्टर 54, गोल्फ कोर्स रोड)**
+• 2,250 sq.ft कारपेट एरिया, बच्चों के लिए अलग बेडरूम एवं फैमिली लाउंज।
+• 82% खुला हरा-भरा क्षेत्र, हीटेड पूल एवं टॉप इंटरनेशनल स्कूल केवल 10 मिनट की दूरी पर।
+• मूल्य: ₹3.40 Cr – ₹5.80 Cr (Ready to Move | HARERA प्रमाणित)।
+
+🏙️ **अल्ट्रा-लक्ज़री अपग्रेड: The Grand Horizon 4 BHK Sky Villa (सेक्टर 65)**
+• 4,250 sq.ft डुप्लेक्स पेंटहाउस, प्राइवेट हाई-स्पीड एलिवेटर एवं रूफटॉप पूल।
+• मूल्य: ₹8.50 Cr से शुरू।
+
+आपकी प्राथमिकता किस बजट ब्रैकेट में है (₹3.5–6 Cr या ₹8 Cr+)? क्या मैं इस सप्ताहांत आपके परिवार के लिए प्राइवेट साइट विज़िट बुक कर दूँ?`,
+          intent: 'question',
+          service: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+          budget: '₹3.40 Cr – ₹5.80 Cr',
+          reasoning: 'Consultative recommendation tailored for family of 4 in Hindi.',
+        };
+      }
+
+      if (isHinglish) {
+        return {
+          reply: `Aapki **family of 4** ke liye hamare paas 2 best-suited luxury residences hain based on lifestyle & space:
+
+🌟 **Top Choice: Skyline Lumina 3 & 4 BHK (Sector 54, Golf Course Rd)**
+• **Why it's ideal for a family of 4:** 2,250 sq.ft carpet area me expansive master bedroom, 2 dedicated kids/guest bedrooms, aur private family lounge.
+• **Family & Kids Highlights:** 82% open landscaped greens, Olympic heated swimming pool, dedicated children's activity zones, Six Senses clubhouse, aur top schools (The Shri Ram School & Heritage) sirf 10 minute door.
+• **Pricing:** ₹3.40 Cr – ₹5.80 Cr (Ready to Move | HARERA: RC/REP/HARERA/GGM/2024/112).
+
+🏙️ **Ultra-Luxury Duplex: The Grand Horizon 4 BHK Sky Villa (Sector 65)**
+• **Duplex Luxury:** 4,250 sq.ft duplex penthouse with private high-speed elevator jo direct aapke foyer me khulta hai, private rooftop pool, aur panoramic golf views.
+• **Pricing:** Starts at ₹8.50 Cr (Ready to Move).
+
+Aapka preferred budget bracket kya rahega (₹3.5–6 Cr ya ₹8 Cr+)? Main aapki family ke liye is weekend accompanied sample flat tour book karwa du?`,
+          intent: 'question',
+          service: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+          budget: '₹3.40 Cr – ₹5.80 Cr',
+          reasoning: 'Consultative recommendation tailored for family of 4 in Hinglish.',
+        };
+      }
+
+      return {
+        reply: `For a **family of 4**, we recommend two premier residences tailored for spacious family living:
+
+🌟 **Top Recommendation: Skyline Lumina 3 & 4 BHK (Sector 54, Golf Course Rd)**
+• **Why it's ideal:** 2,250 sq.ft carpet area featuring a dedicated master suite, two private children's bedrooms, and a central family lounge.
+• **Family Amenities:** 82% open landscaped greens, Olympic heated pool, children's creative play zones, and proximity to top international schools (The Shri Ram School & Heritage Xperiential).
+• **Pricing:** ₹3.40 Cr – ₹5.80 Cr (Ready to Move | HARERA Certified).
+
+🏙️ **Ultra-Luxury Upgrade: The Grand Horizon 4 BHK Sky Villa (Sector 65)**
+• **Duplex Luxury:** 4,250 sq.ft duplex penthouse with a private high-speed elevator opening into your private foyer, rooftop infinity pool, and golf course views.
+• **Pricing:** Starts at ₹8.50 Cr.
+
+Which budget bracket best aligns with your plans (₹3.5–6 Cr or ₹8 Cr+)? I can arrange an accompanied private family tour this weekend.`,
+        intent: 'question',
+        service: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+        budget: '₹3.40 Cr – ₹5.80 Cr',
+        reasoning: 'Consultative recommendation tailored for family of 4 in English.',
+      };
+    }
+
+    // Scenario B: Large / Joint Family (5+ members, parents, multi-generational)
+    const isLargeFamily =
+      (isFamilyQuery && (lower.includes('5') || lower.includes('five') || lower.includes('paanch') || lower.includes('6') || lower.includes('six') || lower.includes('joint') || lower.includes('badi') || lower.includes('bada') || lower.includes('parents') || lower.includes('elderly') || lower.includes('mata pita') || lower.includes('dada dadi'))) ||
+      lower.includes('joint family') ||
+      lower.includes('family of 5') ||
+      lower.includes('family of 6') ||
+      lower.includes('5 members');
+
+    if (isLargeFamily) {
+      if (isHinglish || isHindiScript) {
+        return {
+          reply: `Joint / Badi family (5+ members) ke liye expansive space, elderly parents ki accessibility, aur multi-generational privacy sabse important hoti hai. Iske liye hamara signature recommendation hai:
+
+🌳 **The Crestview Signature Golf Villas (Sector 63, Aravalli Foothills)**
+• **5 BHK Independent Luxury Villas (5,800 sq.ft)**
+• Ground floor master suite with zero-step access (elderly parents ke liye completely safe).
+• 400 sq.yd personal landscaped lawn, basement private home cinema & wine cellar, aur heated indoor lap pool.
+• Multi-tier biometric security and direct golf course buggy access.
+• **Pricing:** ₹11.50 Cr – ₹18.0 Cr.
+
+Alternately, agar aap high-rise penthouse prefer karte hain toh **The Grand Horizon 5 BHK Duplex Sky Villa** (4,250 sq.ft duplex at ₹12 Cr+) ready-to-move available hai.
+
+Kya aap sample villa ka exclusive buggy walkthrough schedule karna chahenge?`,
+          intent: 'question',
+          service: 'The Crestview Signature Golf Villas',
+          budget: '₹11.50 Cr – ₹18.0 Cr',
+          reasoning: 'Consultative recommendation tailored for large/joint family in Hinglish.',
+        };
+      }
+
+      return {
+        reply: `For a large or multi-generational family (5+ members), space, privacy, and accessibility are paramount. Our signature recommendation:
+
+🌳 **The Crestview Signature Golf Villas (Sector 63, Aravalli Foothills)**
+• **5 BHK Independent Luxury Villas (5,800 sq.ft)**
+• Ground-floor master suite with zero-step access—ideal for senior family members.
+• 400 sq.yd private landscaped garden, basement private home theatre, and indoor heated lap pool.
+• Biometric multi-tier security and direct golf buggy access.
+• **Pricing:** ₹11.50 Cr – ₹18.0 Cr.
+
+Alternatively, **The Grand Horizon 5 BHK Duplex Penthouse** (4,250 sq.ft, ₹12 Cr+) is available ready-to-move. Would you like to schedule an accompanied private villa tour?`,
+        intent: 'question',
+        service: 'The Crestview Signature Golf Villas',
+        budget: '₹11.50 Cr – ₹18.0 Cr',
+        reasoning: 'Consultative recommendation tailored for large/joint family.',
+      };
+    }
+
+    // Scenario C: Couple / Nuclear / Small Family (1-2 members)
+    const isCouple =
+      isFamilyQuery && (lower.includes('couple') || lower.includes('2') || lower.includes('two') || lower.includes('do member') || lower.includes('nuclear') || lower.includes('bachelor') || lower.includes('husband wife'));
+
+    if (isCouple) {
+      if (isHinglish || isHindiScript) {
+        return {
+          reply: `Couple ya small nuclear family ke liye **Skyline Lumina 3 BHK (2,250 sq.ft)** at Sector 54, Golf Course Road absolute best luxury choice hai:\n• Pricing: ₹3.40 Cr – ₹4.20 Cr (Ready to Move).\n• Prime Golf Course Road connectivity, low-maintenance vertical living, Six Senses clubhouse, aur high rental demand.\n\nKya aap sample flat ka master plan download karna chahenge ya private site tour book karein?`,
+          intent: 'question',
+          service: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+          budget: '₹3.40 Cr – ₹4.20 Cr',
+          reasoning: 'Consultative recommendation for couple / small family in Hinglish.',
+        };
+      }
+
+      return {
+        reply: `For a couple or small family, **Skyline Lumina 3 BHK (2,250 sq.ft)** on Golf Course Road is our premier recommendation (₹3.40 Cr – ₹4.20 Cr). It offers low-maintenance luxury, prime connectivity, a Six Senses wellness clubhouse, and strong capital appreciation. Would you like to view the floor plans?`,
+        intent: 'question',
+        service: 'Skyline Lumina 3 & 4 BHK Luxury Residences',
+        budget: '₹3.40 Cr – ₹4.20 Cr',
+        reasoning: 'Consultative recommendation for couple / small family.',
+      };
+    }
+
+    // Scenario D: Investment & Rental Yield Recommendation
+    const isInvestment =
+      lower.includes('invest') ||
+      lower.includes('rental yield') ||
+      lower.includes('rent pe') ||
+      lower.includes('kiraya') ||
+      lower.includes('returns') ||
+      lower.includes('roi') ||
+      (lower.includes('commercial') && lower.includes('best'));
+
+    if (isInvestment) {
+      if (isHinglish || isHindiScript) {
+        return {
+          reply: `High ROI & Rental Yield investment ke liye hamara top recommendation hai:\n\n🏢 **Skyline One Commercial Corporate Suites (CyberCity Phase 2)**\n• **Guaranteed 8.2% Gross Rental Yield** with Fortune 500 corporate leases.\n• Investment brackets: ₹2.10 Cr – ₹6.50 Cr (Ready to Move).\n• High liquidity, triple-height reception, aur instant rental cashflow from Day 1.\n\nResidential capital appreciation ke liye **The Grand Horizon Sky Villas** on Golf Course Extn Road ne last 24 months me 28% capital growth deliver ki hai.\n\nAap commercial pre-leased asset prefer karenge ya luxury residential?`,
+          intent: 'question',
+          service: 'Skyline One Commercial Corporate Suites',
+          budget: '₹2.10 Cr – ₹6.50 Cr',
+          reasoning: 'Consultative recommendation for high rental yield investment in Hinglish.',
+        };
+      }
+
+      return {
+        reply: `For high rental yields and institutional appreciation, we recommend:\n\n🏢 **Skyline One Commercial Corporate Suites (CyberCity Phase 2)**\n• **Guaranteed 8.2% Gross Rental Yield** with Fortune 500 corporate tenants.\n• Capital investment: ₹2.10 Cr – ₹6.50 Cr (Ready to Move).\n• Instant rental cashflow from Day 1 in Gurugram's prime corporate corridor.\n\nFor residential capital appreciation, **The Grand Horizon Sky Villas** has delivered 28% capital appreciation over the last 24 months. Which asset class best matches your investment portfolio?`,
+        intent: 'question',
+        service: 'Skyline One Commercial Corporate Suites',
+        budget: '₹2.10 Cr – ₹6.50 Cr',
+        reasoning: 'Consultative recommendation for high rental yield investment.',
+      };
+    }
+
+    // Scenario E: Villa vs Penthouse Comparison
+    const isComparison =
+      (lower.includes('villa') && (lower.includes('flat') || lower.includes('apartment') || lower.includes('penthouse'))) ||
+      lower.includes('villa vs') ||
+      lower.includes('kothi ya');
+
+    if (isComparison) {
+      if (isHinglish || isHindiScript) {
+        return {
+          reply: `Villa vs Penthouse comparison me decision aapke lifestyle preferences par depend karta hai:\n\n🌳 **The Crestview Signature Golf Villas (₹11.50 Cr – ₹18.0 Cr)**:\n• **Best for Independent Land Ownership & Privacy:** 400 sq.yd personal landscaped lawn, basement cinema, private heated lap pool, zero shared walls, aur land title ownership.\n\n🏙️ **The Grand Horizon Sky Villas (₹8.50 Cr – ₹14.0 Cr)**:\n• **Best for Panoramic Golf Views & Effortless Living:** 42nd-floor golf course views, private elevators, rooftop infinity pool, 24/7 concierge, aur lock-and-leave convenience.\n\nAap private independent villa prefer karenge ya sky duplex?`,
+          intent: 'question',
+          reasoning: 'Villa vs Penthouse comparison analysis in Hinglish.',
+        };
+      }
+
+      return {
+        reply: `Comparing an independent villa with a sky penthouse comes down to privacy vs. skyline luxury:\n\n🌳 **The Crestview Signature Golf Villas (₹11.50 Cr – ₹18.0 Cr)**:\n• Private 400 sq.yd lawn, basement cinema, private lap pool, zero shared walls, and full freehold land ownership.\n\n🏙️ **The Grand Horizon Sky Villas (₹8.50 Cr – ₹14.0 Cr)**:\n• 42nd-floor golf views, private elevator, rooftop infinity pool, and lock-and-leave luxury concierge services.\n\nWhich lifestyle format appeals more to your family?`,
+        intent: 'question',
+        reasoning: 'Villa vs Penthouse comparison analysis.',
+      };
+    }
+
+    // Scenario F: General "best kya rahega" / "what do you recommend" without specific criteria
+    if (isRecommendationQuery && !matchedProp && !lower.includes('ghar') && !lower.includes('makan') && !lower.includes('flat')) {
+      if (isHinglish || isHindiScript) {
+        return {
+          reply: `Aapke liye best property recommend karne ke liye mujhe 2 brief details bataiye:\n1. **Aapki family size kitni hai** (e.g. 3-4 members, joint family, ya couple)?\n2. **Aapka preferred budget bracket kya hai** (₹3.5–6 Cr luxury condo, ₹8.5–14 Cr penthouse, ya ₹11.5–18 Cr independent golf villa)?\n\nYe batate hi main aapko exact matching floor plans aur sample flat site visit arrange karwa dunga!`,
+          intent: 'question',
+          reasoning: 'Consultative needs discovery prompt in Hinglish.',
+        };
+      }
+
+      return {
+        reply: `To recommend the best property tailored to your needs, could you share two quick preferences:\n1. **Your family size / living profile** (e.g., family of 4, multi-generational, or couple)?\n2. **Your preferred investment range** (₹3.5–6 Cr luxury condo, ₹8.5–14 Cr penthouse, or ₹11.5–18 Cr independent villa)?\n\nI will instantly match the ideal floor plan and arrange a private showing.`,
+        intent: 'question',
+        reasoning: 'Consultative needs discovery prompt.',
+      };
     }
 
     // 5. Site Visit Booking Intent (English + Hinglish + Hindi)

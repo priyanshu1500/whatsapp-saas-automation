@@ -38,6 +38,15 @@ interface PromptChip {
 
 const TEST_PROMPTS: PromptChip[] = [
   {
+    id: 'p-0',
+    category: 'Hinglish',
+    label: '👨‍👩‍👧‍👦 Family of 4 Advisory (Typo-Tolerant)',
+    prompt: 'familt of 4 ke lie best kyarahgea',
+    expectedResult:
+      'Recommends Skyline Lumina 3/4 BHK (2,250 sq.ft, kids bedrooms, open greens, top schools) + Grand Horizon Duplex with private elevator.',
+    intent: 'question (advisory)',
+  },
+  {
     id: 'p-1',
     category: 'Hinglish',
     label: '🏡 Portfolio & Ghar Dikhado',

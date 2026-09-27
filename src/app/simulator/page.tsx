@@ -30,6 +30,11 @@ interface ChatBubble {
 
 const PRESET_REAL_ESTATE_QUERIES = [
   {
+    label: '👨‍👩‍👧‍👦 "Family of 4 ke liye best options kya hai?"',
+    text: 'family of 4 ke lie best options kya hai ??',
+    badge: 'Advisor',
+  },
+  {
     label: '🏡 "Ghar dikhado" (Hinglish Portfolio Overview)',
     text: 'ghar dikhado',
     badge: 'Popular',
@@ -37,6 +42,11 @@ const PRESET_REAL_ESTATE_QUERIES = [
   {
     label: '💰 "4 BHK kitne ka hai aur carpet area?" (Hinglish)',
     text: '4 bhk ka price aur carpet area kitna hai?',
+  },
+  {
+    label: '📈 "Investment ke liye best rental yield option?"',
+    text: 'investment ke liye kaunsa option best rahega high rental income ke sath?',
+    badge: 'High ROI',
   },
   {
     label: '📅 "Kal 11 baje site visit book kardo chauffeur ke sath"',
