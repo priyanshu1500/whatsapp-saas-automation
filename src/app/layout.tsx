@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
@@ -21,12 +21,6 @@ export const metadata: Metadata = {
   description: 'Enterprise WhatsApp AI Operating System for luxury real estate developers and high-ticket brokerages.',
 };
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -34,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable} dark h-full`}>
-      <body className="min-h-full bg-[#060911] text-slate-100 antialiased selection:bg-amber-500/20 selection:text-amber-200 font-sans">
+      <body className="h-full bg-[#060911] text-slate-100 antialiased selection:bg-amber-500/20 selection:text-amber-200 overflow-hidden font-sans">
         <AuthProvider>
           <AuthGate>{children}</AuthGate>
         </AuthProvider>
